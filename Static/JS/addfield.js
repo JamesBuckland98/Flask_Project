@@ -16,6 +16,7 @@ function myEventFunction() {
   select.add(option2)
   select.add(option3)
   activity.append(br);
+  option0.setAttribute("disabled", false);
 }
 function myEventFunction2(){
   var element = document.getElementById("activity");
@@ -26,7 +27,7 @@ function myAgeFunction() {
   var AgeGroup = document.getElementById("AgeRange");
   var br = document.createElement("br");
   var select = document.createElement("select");
-  var option0 = document.createElement("option");
+  var option0 = document.createElement("option")
   var option1 = document.createElement("option");
   var option2 = document.createElement("option");
   var option3 = document.createElement("option");
@@ -40,6 +41,7 @@ function myAgeFunction() {
   select.add(option2)
   select.add(option3)
   AgeGroup.append(br);
+  option0.setAttribute("disabled", false);
 }
 function myAgeFunction2(){
   var element = document.getElementById("AgeRange");
