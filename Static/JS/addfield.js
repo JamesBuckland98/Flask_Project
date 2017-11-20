@@ -10,6 +10,9 @@ function myEventFunction() {
   option1.text = "Tag";
   option2.text = "Touch";
   option3.text = "Contact";
+  option1.value = "Tag"
+  option2.value = "Touch"
+  option3.value = "Contact"
   activity.append(select)
   select.add(option0)
   select.add(option1)
@@ -35,6 +38,9 @@ function myAgeFunction() {
   option1.text = "Minis (4-7)";
   option2.text = "Juniours (8-17)";
   option3.text = "Seniors (18+)";
+  option1.value ="Minis"
+  option2.value ="Juniours"
+  option3.value ="Seniors"
   AgeGroup.append(select)
   select.add(option0)
   select.add(option1)

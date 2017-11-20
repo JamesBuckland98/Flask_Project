@@ -7,6 +7,7 @@
       WRU event form
     </title>
     <link href="../Static/CSS/bootstrap.min.css" rel="stylesheet">
+    <link href="../Static/CSS/style.css" rel="stylesheet">
     <link href="../Static/CSS/slider.css" rel="stylesheet">
   </head>
   <body>
@@ -17,16 +18,18 @@
       </div>
     </div>
     <div class="container">
-      <form>
-        Date:<br>
+      <form id="infoForm" action="" method="post" >
+        <span>Date:</span><br>
         <input type="date" id="date"><br>
-        Attendance:<br>
+
+        <span>Attendance:</span><br>
         <input type="number" id="Attendance"><br>
-        Event:
+
+        <span>Event:</span>
         <button type="button" name="add" onclick="myEventFunction()"> Add another group </button>
         <button type="button" name="delete" onclick="myEventFunction2()"> delete group </button>
         <div id="activity">
-        <select value="Event" id="event">
+        <select value="Event" id="eventType">
           <option disabled selected value> -- select an option -- </option>
           <option value="Tag">Tag</option>
           <option value="Touch">Touch</option>
@@ -37,11 +40,11 @@
         <!-- code taken from https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
         <div id="slidecontainer">
           <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+          <p>Males: <span id="Men"></span>%</p>
+          <p>Females: <span id="Women"></span>%</p>
         </div>
-        <p>Males: <span id="Men"></span>%</p>
-        <p>Females: <span id="Women"></span>%</p>
 
-        Age Ranges:
+        <span>Age Ranges:</span>
         <!-- when clicked calls te functions in the addfields.js file  -->
         <button type="button" name="add" onclick="myAgeFunction()"> Add another group </button>
         <button type="button" name="delete" onclick="myAgeFunction2()"> delete group </button>
@@ -54,7 +57,9 @@
           </select>
           <br>
         </div>
+        <div id="submit">
         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+      </div>
       </form>
     </div>
 

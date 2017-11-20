@@ -1,3 +1,41 @@
+/*CSS reset*/
+*{
+  padding: 0px;
+  margin: 0px
+}
+body{
+ background: linear-gradient(red, firebrick);
+}
+span{
+  font-family: Impact, Charcoal, sans-serif;
+  margin-left: 1%;
+}
+p{
+  margin: 1%;
+}
+form{
+  background: grey;
+  border:5px solid black
+}
+input{
+  margin: 1%;
+}
+select{
+  margin: 1%;
+}
+button{
+  padding: 1px;
+}
+#Men{
+  margin: 0;
+}
+#Women{
+  margin: 0;
+}
+#submit{
+  margin-left: 1%;
+}
 #WRU_logo{
-  position:absolute;
+  float: left;
+  margin-right: 2%
 }
