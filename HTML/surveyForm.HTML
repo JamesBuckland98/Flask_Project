@@ -33,7 +33,7 @@
         </select>
         <br>
         </div>
-
+        <!-- code taken from https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
         <div id="slidecontainer">
           <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
         </div>
@@ -41,6 +41,7 @@
         <p>Females: <span id="Women"></span>%</p>
 
         Age Ranges:
+        <!-- when clicked calls te functions in the addfields.js file  -->
         <button type="button" name="add" onclick="myAgeFunction()"> Add another group </button>
         <button type="button" name="delete" onclick="myAgeFunction2()"> delete group </button>
         <div id="AgeRange">
