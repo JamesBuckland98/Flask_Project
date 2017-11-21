@@ -15,7 +15,7 @@ else if(isNan(attendance));
   return false;
 }
 else{
-  alert("Event submitted successfully.")
+  alert("Event submitted successfully")
   return true;
 }
 }
