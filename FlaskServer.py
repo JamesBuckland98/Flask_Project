@@ -12,14 +12,19 @@ def AddInfo():
         date=request.form.get('date', default="Error")
         Attendance = request.form.get('attendance', default="Error")
         eventType = request.form.get('eventType', default="Error")
-        slider = request.form.get('slider', default="Error")
+        males = int(request.form.get('slider', default="Error"))
+        females= 100-males
         age= request.form.get('age', default="Error")
         print("uploading data")
+        print(date)
+        print(Attendance)
+        print(males)
+        print(females)
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute("INSERT INTO Event('Date', 'Attendance','Males','Females')\
-            VALUES (?,?,?,?)",(date, Attendance, slider, 100-slider))
+            VALUES (?,?,?,?)",(date, Attendance, males, females ))
             conn.commit()
             msg = "Record successfully added"
         except:
