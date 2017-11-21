@@ -4,7 +4,9 @@
   margin: 0px
 }
 body{
- background: linear-gradient(red, firebrick);
+ background: linear-gradient( to left top,#FB1D2C, #B51520) fixed;
+ background-repeat:no-repeat;
+ background-size: cover;
 }
 span{
   font-family: Impact, Charcoal, sans-serif;
