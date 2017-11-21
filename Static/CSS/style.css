@@ -17,7 +17,7 @@ p{
 }
 form{
   background: grey;
-  border:5px solid black
+  border:5px solid black;
 }
 input{
   margin: 1%;
@@ -40,4 +40,9 @@ button{
 #WRU_logo{
   float: left;
   margin-right: 2%
+}
+#welcome{
+  background: grey;
+  border:5px solid black;
+  text-align: center;
 }
