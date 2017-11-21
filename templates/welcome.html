@@ -1,0 +1,24 @@
+{%extends 'ParentTemplate.html'%}
+
+{% block title%}
+{{ super() }}
+Welcome to WRU
+{%endblock%}
+
+{% block headBlock%}
+{{ super() }}
+Welcome to the Welsh Rugby Union
+{%endblock%}
+
+{% block contentBlock%}
+{{ super() }}
+<div id="welcome">
+  <button type="button" class="btn btn-primary btn-lg">Log in</button>
+  <button type="button" class="btn btn-secondary btn-lg">Continue as guest</button>
+</div>
+{%endblock%}
+
+{% block scriptsBlock%}
+{{ super() }}
+
+{%endblock%}

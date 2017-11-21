@@ -16,4 +16,3 @@ function LoadInfo() {
     xhttp.send(params);
     return false;
   }
-}
