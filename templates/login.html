@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="../static/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<h2>WELCOME TO WELSH RUGBY UNION</h2>
+
+<button onclick="document.getElementById('myForm').style.display='block'" style="width:auto;">Login</button>
+
+<div class="modal">
+
+
+  <form class="modal-content animate" onsubmit="return loadName()" id = "myForm">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('myForm').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="../static/img/wru.jpg" alt="Welsh Rugby Union" class="avatar">
+    </div>
+
+    <div class="container">
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="Username"> <!--required-->
+
+      <label><b>Password</b></label>
+      <input type="text" placeholder="Enter Password" name="Password">
+
+        <button type="submit">Create account</button>
+        <button type="submit">Login</button>
+        <button type="submit">SignOut</button>
+
+      <input type="checkbox" checked="checked"> Remember me
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('myForm').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+</div>
+<span id='txt'></span>
+
+<script>
+
+function loadName() {
+    var Username = document.forms["myForm"]["Username"].value;
+    var Password = document.forms["myForm"]["Password"].value;
+    params = 'Username='+Username+'&Password='+Password;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", '/Login/loginweb', true); // true is asynchronous
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.onload = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        console.log(xhttp.responseText);
+        document.getElementById("txt").innerHTML = xhttp.responseText;
+      } else {
+        console.error(xhttp.statusText);
+      }
+    };
+    xhttp.send(params);
+    return false;
+  }
+// Get the modal
+// var modal = document.getElementById('myForm');
+//
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//     if (event.target == modal) {
+//         modal.style.display = "none";
+//     }
+// }
+</script>
+
+</body>
+</html>
+
+<!-- Code Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_login_form -->

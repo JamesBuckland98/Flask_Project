@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      {% block title%}{%endblock%}
+    </title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/slider.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <img id="WRU_logo"src="../static/images/Welsh_Rugby_Union_logo.png" alt="WRU logo" height="100px">
+          <h1>
+            {% block headBlock%}{%endblock%}
+          </h1>
+      </div>
+    </div>
+    <div class="container">
+      {% block contentBlock%}{%endblock%}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    {% block scriptsBlock%}{%endblock%}
+  </body>
+
+</html>

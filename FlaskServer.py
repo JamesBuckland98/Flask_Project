@@ -34,5 +34,15 @@ def AddInfo():
             conn.close()
             return msg
 
+@app.route("/Parent", methods=['GET'])
+def returnParent():
+    if request.method == 'GET':
+        return render_template('ParentTemplate.html')
+
+@app.route("/Form", methods=['GET'])
+def returnInheritanceBase():
+    if request.method == 'GET':
+        return render_template('ChildForm.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

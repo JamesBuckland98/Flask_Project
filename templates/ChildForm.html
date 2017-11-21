@@ -1,0 +1,65 @@
+{%extends 'ParentTemplate.html'%}
+
+{% block title%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block headBlock%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block contentBlock%}
+{{ super() }}
+<form id="infoForm" action="/Upload" method="post" onsubmit="LoadInfo()">
+  <span>Date:</span><br>
+  <input type="date" id="date" name="date"><br>
+
+  <span>Attendance:</span><br>
+  <input type="number" id="Attendance" name="attendance"><br>
+
+  <span>Event:</span>
+  <button type="button" name="add" onclick="myEventFunction()"> Add another group </button>
+  <button type="button" name="delete" onclick="myEventFunction2()"> delete group </button>
+  <div id="activity">
+  <select value="Event" id="eventType" name="eventType">
+    <option disabled selected value> -- select an option -- </option>
+    <option value="Tag">Tag</option>
+    <option value="Touch">Touch</option>
+    <option value="Contact">Contact</option>
+  </select>
+  <br>
+  </div>
+  <!-- code taken from https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+  <div id="slidecontainer">
+    <input type="range" min="0" max="100" value="50" class="slider" id="myRange" name="slider">
+    <p>Males: <span id="Men"></span>%</p>
+    <p>Females: <span id="Women"></span>%</p>
+  </div>
+
+  <span>Age Ranges:</span>
+  <!-- when clicked calls te functions in the addfields.js file  -->
+  <button type="button" name="add" onclick="myAgeFunction()"> Add another group </button>
+  <button type="button" name="delete" onclick="myAgeFunction2()"> delete group </button>
+  <div id="AgeRange">
+    <select name="age">
+      <option disabled selected value> -- select an option -- </option>
+      <option value="Minis">Minis (4-7)</option>
+      <option value="Juniours">Juniours (8-17)</option>
+      <option value="Seniors">Seniors (18+)</option>
+    </select>
+    <br>
+  </div>
+  <div id="submit">
+  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</div>
+</form>
+{%endblock%}
+
+{% block scriptsBlock%}
+{{ super() }}
+<script type="text/javascript" src="../static/js/slider.js"></script>
+<script type="text/javascript" src="../static/js/addfield.js"></script>
+<script type="text/javascript" src="../static/js/submit.js"></script>
+{%endblock%}
