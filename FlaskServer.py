@@ -49,5 +49,15 @@ def returnLogin():
     if request.method == 'GET':
         return render_template('login.html')
 
+@app.route("/Welcome", methods=['GET'])
+def returnWelcome():
+    if request.method == 'GET':
+        return render_template('welcome.html')
+
+@app.route("/Success", methods=['GET'])
+def returnSuccess():
+    if request.method == 'GET':
+        return render_template('success.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
