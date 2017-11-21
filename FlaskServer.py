@@ -2,7 +2,8 @@ import os
 from flask import Flask, redirect, request, render_template
 import sqlite3
 app = Flask(__name__)
-database='InfoForm.db'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+DATABASE='InfoForm.db'
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
     if request.method=='GET':
@@ -18,17 +19,15 @@ def AddInfo():
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute("INSERT INTO Event('Date', 'Attendance','Males','Females')\
-            VALUES(?,?,?,?)",(date, Attendance, slider, 100-slider))
+            VALUES (?,?,?,?)",(date, Attendance, slider, 100-slider))
             conn.commit()
-            # msg = "Record successfully added"
+            msg = "Record successfully added"
         except:
             conn.rollback()
             msg = "error in insert operation"
         finally:
             conn.close()
             return msg
-
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 if __name__ == "__main__":
     app.run(debug=True)
