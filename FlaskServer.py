@@ -82,10 +82,25 @@ def returnWelcome():
 def returnSuccess():
     if request.method == 'GET':
         return render_template('success.html')
-@app.route("/AdminSearch",methods=['GET'])
+@app.route("/AdminSearch",methods=['GET', 'POST'])
 def returnAdminSearch():
     if request.method == 'GET':
         return render_template('Admin.html')
+    if request.method == 'POST':
+        try:
+            date= request.form.get('date', default ="Error")
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM Event WHERE Date=? ",[date])
+            data=cur.fetchall()
+            print(data)
+        except:
+            print('Error with', data)
+            conn.close()
+        finally:
+            conn.close()
+            return str(data)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
