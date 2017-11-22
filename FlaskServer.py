@@ -82,6 +82,10 @@ def returnWelcome():
 def returnSuccess():
     if request.method == 'GET':
         return render_template('success.html')
+@app.route("/AdminSearch",methods=['GET'])
+def returnAdminSearch():
+    if request.method == 'GET':
+        return render_template('Admin.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

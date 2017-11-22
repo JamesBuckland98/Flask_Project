@@ -28,6 +28,9 @@ select{
 button{
   padding: 1px;
 }
+a {
+  color: white;
+}
 #Men{
   margin: 0;
 }
