@@ -21,11 +21,15 @@ def AddInfo():
         print(Attendance)
         print(males)
         print(females)
+        print(eventType)
+        print(age)
         try:
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
             cur.execute("INSERT INTO Events('Date', 'Attendance','male','female')\
             VALUES (?,?,?,?)",(date, Attendance, males, females ))
+            cur.execute("INSERT INTO Games('gameType', 'ageRange', 'eventID')\
+            VALUES (?,?,?)", (eventType, age, "1"))
             conn.commit()
             msg = "Record successfully added"
         except:
