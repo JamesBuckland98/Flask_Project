@@ -3,7 +3,7 @@ from flask import Flask, redirect, request, render_template
 import sqlite3
 app = Flask(__name__)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-DATABASE1='InfoForm.db'
+DATABASE1='EventForm.db'
 DATABASE2='login.db'
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
@@ -24,7 +24,7 @@ def AddInfo():
         try:
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
-            cur.execute("INSERT INTO Event('Date', 'Attendance','Males','Females')\
+            cur.execute("INSERT INTO Events('Date', 'Attendance','male','female')\
             VALUES (?,?,?,?)",(date, Attendance, males, females ))
             conn.commit()
             msg = "Record successfully added"
