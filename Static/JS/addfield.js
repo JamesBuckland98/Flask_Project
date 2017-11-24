@@ -27,6 +27,9 @@ function myEventFunction2(){
 }
 function myAgeFunction() {
   var AgeGroup = document.getElementById("activity");
+=======
+
+  var AgeGroup = document.getElementById("AgeRange");
   var br = document.createElement("br");
   var select = document.createElement("select");
   var option0 = document.createElement("option")
@@ -48,7 +51,11 @@ function myAgeFunction() {
   AgeGroup.append(br);
   option0.setAttribute("disabled", false);
 }
-function myAgeFunction2(){
+function myEventFunction2(){
+  var element = document.getElementById("activity");
+  element.removeChild(element.lastElementChild);
+  element.removeChild(element.lastElementChild);
+
   var element = document.getElementById("AgeRange");
   element.removeChild(element.lastElementChild);
   element.removeChild(element.lastElementChild);
