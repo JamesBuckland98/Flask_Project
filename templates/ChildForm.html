@@ -31,34 +31,29 @@ WRU Event Form
 
   <h1>Game Information</h1>
 
-  <button type="button" name="add" onclick="myEventFunction()"> Add another game </button>
-  <button type="button" name="delete" onclick="myEventFunction2()"> Delete game </button>
+  <button type="button" name="add" onclick="myEventFunction(); myAgeFunction()" onclick=""> Add another game </button>
+  <button type="button" name="delete" onclick="myEventFunction2(); myAgeFunction2()"> Delete game </button>
   <br>
   <span>Game type:</span>
   <div id="activity">
   <select value="Event" id="eventType" name="eventType">
-    <option disabled selected value> -- select an option -- </option>
+    <option disabled selected value> -- select a game type -- </option>
     <option value="Tag">Tag</option>
     <option value="Touch">Touch</option>
     <option value="Contact">Contact</option>
   </select>
-  <br>
   <!-- when clicked calls te functions in the addfields.js file  -->
-  <span>Age Ranges:</span>
-  <div id="AgeRange">
     <select name="age">
-      <option disabled selected value> -- select an option -- </option>
+      <option disabled selected value> -- select an age range -- </option>
       <option value="Minis">Minis (4-7)</option>
       <option value="Juniors">Juniors (8-17)</option>
       <option value="Seniors">Seniors (18+)</option>
     </select>
     <br>
   </div>
-  </div>
   <div id="submit">
     <button type="submit" class="btn btn-primary btn-lg" onclick="formEventValidate()">Submit</button>
   </div>
-
 </form>
 {%endblock%}
 
