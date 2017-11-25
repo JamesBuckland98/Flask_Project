@@ -93,17 +93,28 @@ def returnAdminSearch():
     if request.method == 'POST':
         try:
             date= request.form.get('date', default ="Error")
+            game= request.form.get('eventType', default="Error")
+            age= request.form.get('age', default="Error")
+            print(date)
+            print(game)
+            print(age)
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
-            cur.execute("SELECT * FROM Event WHERE Date=? ",[date])
+            cur.execute("SELECT * FROM Events WHERE Date=? ",[date])
             data=cur.fetchall()
+            cur.execute("SELECT * FROM Games WHERE gameType=?",[game])
+            data2=cur.fetchall()
+            cur.execute("SELECT * FROM Games WHERE ageRange=?",[age])
+            data3=cur.fetchall()
             print(data)
+            print(data2)
+            print(data3)
         except:
             print('Error with', data)
             conn.close()
         finally:
             conn.close()
-            return str(data)
+            return render_template("AdminTable.html", data= data, data2=data2, data3= data3)
 
 
 if __name__ == "__main__":

@@ -32,6 +32,16 @@ button{
 a {
   color: white;
 }
+table{
+  border: 5px solid black;
+  /*margin: 2%;*/
+  background: grey;
+  width: 100%;
+  text-align: center;
+}
+td{
+  border: 3px solid black;
+}
 #Men{
   margin: 0;
 }
