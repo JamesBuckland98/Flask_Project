@@ -38,30 +38,7 @@ def AddInfo():
         finally:
             conn.close()
             return msg
-# Hugo Login Page DataBase
-@app.route("/Login/loginweb", methods = ['GET','POST'])
-def Loginintowebpage():
-	if request.method =='GET':
-		return render_template('login.html')
-	if request.method =='POST':
-		Username = request.form.get('Username', default="Error")#rem: args for get form for post
-		Password = request.form.get('Password', default="Error")
-		print("Welcome logger")
-		print(Username)
-		print(Password)
-		try:
-			conn = sqlite3.connect(DATABASE2)
-			cur = conn.cursor()
-			cur.execute("INSERT INTO Login ('Username', 'Password')\
-						VALUES (?,?)",(Username, Password) )
-			conn.commit()
-			msg = "Login successfully implemented"
-		except:
-			conn.rollback()
-			msg = "error in insert operation"
-		finally:
-			conn.close()
-			return msg
+
 @app.route("/Parent", methods=['GET'])
 def returnParent():
     if request.method == 'GET':
@@ -72,10 +49,10 @@ def returnForm():
     if request.method == 'GET':
         return render_template('ChildForm.html')
 
-@app.route("/Login", methods=['GET'])
-def returnLogin():
-    if request.method == 'GET':
-        return render_template('login.html')
+# @app.route("/Login", methods=['GET'])
+# def returnLogin():
+#     if request.method == 'GET':
+#         return render_template('login.html')
 
 @app.route("/Welcome", methods=['GET'])
 def returnWelcome():
@@ -115,7 +92,29 @@ def returnAdminSearch():
         finally:
             conn.close()
             return render_template("AdminTable.html", data= data, data2=data2, data3= data3)
-
+@app.route("/NewUser", methods=['GET','POST'])
+def returnLogin():
+    if request.method=='GET':
+        return render_template('NewUser.html')
+    if request.method=='POST':
+        try:
+            username=request.form.get('username', default="Error")
+            password=request.form.get('password', default="Error")
+            print("uploading data")
+            print(username)
+            print(password)
+            conn=sqlite3.connect(DATABASE2)
+            cur = conn.cursor()
+            cur.execute("INSERT INTO Login ('Username', 'Password')\
+						VALUES (?,?)",(username, password))
+            conn.commit()
+            msg = "record successfully added"
+        except:
+            conn.rollback()
+            msg = "error in insert operation"
+        finally:
+            conn.close()
+            return msg
 
 if __name__ == "__main__":
     app.run(debug=True)
