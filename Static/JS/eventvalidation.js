@@ -8,16 +8,16 @@ function formEventValidate(){
   {
     alert("All fields must be completed.")
     return false;
-  }
-else if(isNan(attendance));
-{
-  alert(attendance + "is not a valid NUMBER of attendees.")
-  return false;
-}
-else{
-  alert("Event submitted successfully")
-  return true;
-}
-}
+//   }
+// else if(isNan(attendance));
+// {
+//   alert(attendance + "is not a valid NUMBER of attendees.")
+//   return false;
+// }
+// else{
+//   alert("Event submitted successfully")
+//   return true;
+// }
+// }
 //unsure still of how to approach age range since multiple can be added - duplicates etc//
 //unsure of how to validate time, so not in the past.//
