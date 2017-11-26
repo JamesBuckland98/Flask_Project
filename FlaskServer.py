@@ -47,9 +47,11 @@ def returnNewUser():
         try:
             username=request.form.get('username', default="Error")
             password=request.form.get('password', default="Error")
+            repassword=request.form.get('repassword', default="Error")
             print("uploading data")
             print(username)
             print(password)
+            print(repassword)
             conn=sqlite3.connect(DATABASE2)
             cur = conn.cursor()
             cur.execute("INSERT INTO Login ('Username', 'Password')\
@@ -118,8 +120,8 @@ def returnLogin():
         finally:
             if data ==[] or data2 == []:
                 conn.close()
-                msg="no login data"
-                return msg
+                msg="Username or password is incorrect"
+                return render_template("James_login.html",msg=msg)
             else:
                 return render_template("ChildForm.html")
 @app.route("/Parent", methods=['GET'])
