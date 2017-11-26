@@ -11,6 +11,7 @@ body{
 span{
   font-family: Impact, Charcoal, sans-serif;
   margin-left: 1%;
+  size: 12pt;
 }
 p{
   margin: 1%;
@@ -27,6 +28,19 @@ select{
 }
 button{
   padding: 1px;
+}
+a {
+  color: white;
+}
+table{
+  border: 5px solid black;
+  /*margin: 2%;*/
+  background: grey;
+  width: 100%;
+  text-align: center;
+}
+td{
+  border: 3px solid black;
 }
 #Men{
   margin: 0;

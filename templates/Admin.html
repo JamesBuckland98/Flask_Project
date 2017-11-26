@@ -1,0 +1,43 @@
+{%extends 'ParentTemplate.html'%}
+{% block title%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block headBlock%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block contentBlock%}
+{{ super() }}
+<a href="/Login" class="btn btn-primary btn-lg">Sign out</a>
+<a href="/Form" class="btn btn-primary btn-lg">Form</a>
+<h1> Admin Page </h1>
+<form id=adminForm action="/AdminSearch" method="post">
+  <span>Search Date:</span><br>
+  <input type="date" id="date" name="date"><br>
+
+  <span>Search Type of Games:</span><br>
+  <select value="Event" id="eventType" name="eventType">
+    <option disabled selected value> -- select an option -- </option>
+    <option value="Tag">Tag</option>
+    <option value="Touch">Touch</option>
+    <option value="Contact">Contact</option>
+  </select>
+
+  <select name="age">
+    <option disabled selected value> -- select an option -- </option>
+    <option value="Minis">Minis (4-7)</option>
+    <option value="Juniours">Juniours (8-17)</option>
+    <option value="Seniors">Seniors (18+)</option>
+  </select>
+  <br>
+  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+{%endblock%}
+
+{% block scriptsBlock%}
+{{ super() }}
+<!-- javascriptgoes here -->
+{%endblock%}

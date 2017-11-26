@@ -1,0 +1,32 @@
+{%extends 'ParentTemplate.html'%}
+
+{% block title%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block headBlock%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block contentBlock%}
+{{ super() }}
+<form id=NewUser action="/NewUser" method="post">
+  <span>Username</span><br>
+  <input type="text" id="username" name="username"><br>
+
+  <span>Password</span><br>
+  <input type="password" id="password" name="password"><br>
+
+  <span>Re-enter Password</span><br>
+  <input type="password" id="repassword" name="repassword"><br><br>
+  <button type="submit" class="btn btn-primary btn-lg"> Create new user </button>
+  <a href="/Login" class="btn btn-primary btn-lg"> Back </a>
+</form>
+{%endblock%}
+
+{% block scriptsBlock%}
+{{ super() }}
+<!-- javascriptgoes here -->
+{%endblock%}

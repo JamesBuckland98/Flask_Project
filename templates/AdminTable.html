@@ -1,0 +1,72 @@
+{%extends 'ParentTemplate.html'%}
+{% block title%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block headBlock%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block contentBlock%}
+{{ super() }}
+<a href="/AdminSearch" class="btn btn-primary btn-lg">Back</a>
+<h1> Info: </h1>
+<table>
+  <thead>
+    <td><span>EventID</span></td>
+    <td><span>Date</span></td>
+    <td><span>Attendance</span></td>
+    <td><span>Males</span></td>
+    <td><span>Females</span></td>
+  </thead>
+  {%for row in data%}
+  <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+    <td>{{row[4]}}</td>
+  </tr>
+  {%endfor%}
+</table>
+<h2> Game info </h2>
+<table>
+  <thead>
+    <td><span>GameID</span></td>
+    <td><span>Game Type</span></td>
+    <td><span>Age Range</span></td>
+    <td><span>EventID</span></td>
+  </thead>
+  {%for row in data2%}
+  <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+  </tr>
+  {%endfor%}
+</table>
+<h2> Age info </h2>
+<table>
+  <thead>
+    <td><span>GameID</span></td>
+    <td><span>Game Type</span></td>
+    <td><span>Age Range</span></td>
+    <td><span>EventID</span></td>
+  </thead>
+  {%for row in data3%}
+  <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+  </tr>
+  {%endfor%}
+</table>
+{%endblock%}
+{% block scriptsBlock%}
+{{ super() }}
+<!-- javascriptgoes here -->
+{%endblock%}
