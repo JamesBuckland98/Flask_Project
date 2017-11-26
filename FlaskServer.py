@@ -39,30 +39,30 @@ def AddInfo():
             conn.close()
             return msg
 
-@app.route("/Parent", methods=['GET'])
-def returnParent():
-    if request.method == 'GET':
-        return render_template('ParentTemplate.html')
+@app.route("/NewUser", methods=['GET','POST'])
+def returnNewUser():
+    if request.method=='GET':
+        return render_template('NewUser.html')
+    if request.method=='POST':
+        try:
+            username=request.form.get('username', default="Error")
+            password=request.form.get('password', default="Error")
+            print("uploading data")
+            print(username)
+            print(password)
+            conn=sqlite3.connect(DATABASE2)
+            cur = conn.cursor()
+            cur.execute("INSERT INTO Login ('Username', 'Password')\
+						VALUES (?,?)",(username, password))
+            conn.commit()
+            msg = "record successfully added"
+        except:
+            conn.rollback()
+            msg = "error in insert operation"
+        finally:
+            conn.close()
+            return msg
 
-@app.route("/Form", methods=['GET'])
-def returnForm():
-    if request.method == 'GET':
-        return render_template('ChildForm.html')
-
-# @app.route("/Login", methods=['GET'])
-# def returnLogin():
-#     if request.method == 'GET':
-#         return render_template('login.html')
-
-@app.route("/Welcome", methods=['GET'])
-def returnWelcome():
-    if request.method == 'GET':
-        return render_template('welcome.html')
-
-@app.route("/Success", methods=['GET'])
-def returnSuccess():
-    if request.method == 'GET':
-        return render_template('success.html')
 @app.route("/AdminSearch",methods=['GET', 'POST'])
 def returnAdminSearch():
     if request.method == 'GET':
@@ -92,29 +92,61 @@ def returnAdminSearch():
         finally:
             conn.close()
             return render_template("AdminTable.html", data= data, data2=data2, data3= data3)
-@app.route("/NewUser", methods=['GET','POST'])
+
+@app.route("/Login" , methods=['GET', 'POST'])
 def returnLogin():
     if request.method=='GET':
-        return render_template('NewUser.html')
+        return render_template("James_login.html")
     if request.method=='POST':
         try:
             username=request.form.get('username', default="Error")
             password=request.form.get('password', default="Error")
-            print("uploading data")
+            print("fetching data")
             print(username)
             print(password)
             conn=sqlite3.connect(DATABASE2)
             cur = conn.cursor()
-            cur.execute("INSERT INTO Login ('Username', 'Password')\
-						VALUES (?,?)",(username, password))
-            conn.commit()
-            msg = "record successfully added"
+            cur.execute("SELECT Username FROM Login WHERE Username=?",[username])
+            data=cur.fetchall()
+            cur.execute("SELECT Password FROM Login WHERE Password=?",[password])
+            data2=cur.fetchall()
+            print(data)
+            print(data2)
         except:
-            conn.rollback()
-            msg = "error in insert operation"
-        finally:
+            print('error with',data)
             conn.close()
-            return msg
+        finally:
+            if data ==[] or data2 == []:
+                conn.close()
+                msg="no login data"
+                return msg
+            else:
+                return render_template("ChildForm.html")
+@app.route("/Parent", methods=['GET'])
+def returnParent():
+    if request.method == 'GET':
+        return render_template('ParentTemplate.html')
+
+@app.route("/Form", methods=['GET'])
+def returnForm():
+    if request.method == 'GET':
+        return render_template('ChildForm.html')
+
+# @app.route("/Login", methods=['GET'])
+# def returnLogin():
+#     if request.method == 'GET':
+#         return render_template('login.html')
+
+@app.route("/Welcome", methods=['GET'])
+def returnWelcome():
+    if request.method == 'GET':
+        return render_template('welcome.html')
+
+@app.route("/Success", methods=['GET'])
+def returnSuccess():
+    if request.method == 'GET':
+        return render_template('success.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

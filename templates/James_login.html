@@ -12,14 +12,15 @@ WRU Event Form
 
 {% block contentBlock%}
 {{ super() }}
-<form id=NewUser action="/NewUser" method="post">
+<form id=Login action="/Login" method="post">
   <span>Username</span><br>
   <input type="text" id="username" name="username"><br>
 
   <span>Password</span><br>
   <input type="password" id="password" name="password"><br>
 
-  <button type="submit" class="btn btn-primary btn-lg"> Create new user </button>
+  <button type="submit" class="btn btn-primary btn-lg"> Login </button>
+  <a href="/NewUser" class="btn btn-primary btn-lg"> Create a new user </a>
 </form>
 {%endblock%}
 
