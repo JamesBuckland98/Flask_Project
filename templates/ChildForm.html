@@ -12,7 +12,7 @@ WRU Event Form
 
 {% block contentBlock%}
 {{ super() }}
-<form id="infoForm" action="/Upload" method="post" onsubmit="LoadInfo()">
+<form id="infoForm" action="/Upload" method="post" onsubmit="return formEventValidate()">
   <h1>Event Information</h1>
   <br>
   <span>Date:</span><br>
@@ -51,8 +51,9 @@ WRU Event Form
     </select>
     <br>
   </div>
+  <span> {{msg}} </span>
   <div id="submit">
-    <button type="submit" class="btn btn-primary btn-lg" onclick="formEventValidate()">Submit</button>
+    <button type="submit" class="btn btn-primary btn-lg" onclick="return formEventValidate()">Submit</button>
   </div>
 </form>
 {%endblock%}
