@@ -8,14 +8,14 @@ DATABASE2='login.db'
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
     if request.method=='GET':
-        return render_template("surveyForm.HTML")
+        return render_template("ChildForm.HTML")
     if request.method=='POST':
-        date=request.form.get('date', default="Error")
-        Attendance = request.form.get('attendance', default="Error")
-        eventType = request.form.get('eventType', default="Error")
-        males = int(request.form.get('slider', default="Error"))
+        date=request.form.get('date')
+        Attendance = request.form.get('attendance')
+        eventType = request.form.get('eventType')
+        males = int(request.form.get('slider'))
         females= 100-males
-        age= request.form.get('age', default="Error")
+        age= request.form.get('age')
         print("uploading data")
         print(date)
         print(Attendance)
@@ -24,6 +24,7 @@ def AddInfo():
         print(eventType)
         print(age)
         try:
+            #Fix Me:
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
             cur.execute("INSERT INTO Events('Date', 'Attendance','male','female')\
@@ -34,10 +35,10 @@ def AddInfo():
             msg = "Record successfully added"
         except:
             conn.rollback()
-            msg = "error in insert operation"
+            msg = "please insert data"
         finally:
             conn.close()
-            return msg
+            return render_template("ChildForm.html", msg=msg)
 
 @app.route("/NewUser", methods=['GET','POST'])
 def returnNewUser():
