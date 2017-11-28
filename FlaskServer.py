@@ -46,9 +46,9 @@ def returnNewUser():
         return render_template('NewUser.html')
     if request.method=='POST':
         try:
-            username=request.form.get('username', default="Error")
-            password=request.form.get('password', default="Error")
-            repassword=request.form.get('repassword', default="Error")
+            username=request.form.get('username')
+            password=request.form.get('password')
+            repassword=request.form.get('repassword')
             print("uploading data")
             print(username)
             print(password)
@@ -64,7 +64,7 @@ def returnNewUser():
             msg = "error in insert operation"
         finally:
             conn.close()
-            return msg
+            return render_template('NewUser.html', msg=msg)
 
 @app.route("/AdminSearch",methods=['GET', 'POST'])
 def returnAdminSearch():
