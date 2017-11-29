@@ -144,15 +144,6 @@ def returnParent():
     if request.method == 'GET':
         return render_template('ParentTemplate.html')
 
-@app.route("/Form", methods=['GET'])
-def returnForm():
-    if request.method == 'GET':
-        return render_template('ChildForm.html')
-
-# @app.route("/Login", methods=['GET'])
-# def returnLogin():
-#     if request.method == 'GET':
-#         return render_template('login.html')
 
 @app.route("/Welcome", methods=['GET'])
 def returnWelcome():
