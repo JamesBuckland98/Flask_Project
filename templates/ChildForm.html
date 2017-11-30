@@ -18,8 +18,36 @@ WRU Event Form
   <span>Date:</span><br>
   <input type="date" id="date" name="date"><br>
 
+  <span>Event Name:</span><br>
+  <div id="eventName">
+    <select value="" id="gameType" name="gameType">
+      <option disabled selected value> -- select an event -- </option>
+      <!-- https://stackoverflow.com/questions/3727045/set-variable-in-jinja -->
+      {% set data = data %}
+      {%for i in range(data|length)%}
+        <option>{{data[i]}}</option>
+      {%endfor%}
+    </select>
+  </div>
+
   <span>Attendance:</span><br>
   <input type="number" id="Attendance" name="attendance"><br>
+
+  <span>Event type:</span>
+  <div id="event">
+  <select value="Event" id="eventType" name="eventType">
+    <option disabled selected value> -- select an event type -- </option>
+    <option value="Hub">Hub activity (school/club/uni/other)</option>
+    <option value="CommunityFest">Community festival</option>
+    <option value="Competition">Competition</option>
+    <option value="CommunityProv">Community provision</option>
+    <option value="Collab">Collaborative delivery</option>
+    <option value="Women">Women & Girls cluster</option>
+    <option value="Regional">Regional rugby camps</option>
+    <option value="Exiles">Exiles camps</option>
+    <option value="Other">Other</option>
+  </select>
+  <br>
   <span>Gender Proportion</span><br>
   <p>Move the slider to represent the male to female ratio</p>
   <!-- code taken from https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
@@ -35,8 +63,8 @@ WRU Event Form
   <button type="button" name="delete" onclick="myEventFunction2()"> Delete game </button>
   <br>
   <span>Game type:</span>
-  <div id="activity">
-  <select value="Event" id="eventType" name="eventType">
+  <div id="game">
+  <select value="Game" id="gameType" name="gameType">
     <option disabled selected value> -- select a game type -- </option>
     <option value="Tag">Tag</option>
     <option value="Touch">Touch</option>
@@ -64,4 +92,5 @@ WRU Event Form
 <script type="text/javascript" src="../static/js/addfield.js"></script>
 <script type="text/javascript" src="../static/js/submit.js"></script>
 <script type="text/javascript" src="../static/js/eventvalidation.js"></script>
+<script type="text/javascript" src="../static/js/gameoptions.js"></script>
 {%endblock%}
