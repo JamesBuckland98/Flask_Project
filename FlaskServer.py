@@ -23,7 +23,11 @@ filename2="message.txt"
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
     if request.method=='GET':
-        return render_template("ChildForm.HTML")
+        conn = sqlite3.connect(DATABASE1)
+        cur = conn.cursor()
+        cur.execute("SELECT eventName FROM Events")
+        data=cur.fetchall()
+        return render_template("ChildForm.HTML", data=data)
     if request.method=='POST':
         date=request.form.get('date')
         Attendance = request.form.get('attendance')
@@ -31,12 +35,15 @@ def AddInfo():
         males = int(request.form.get('slider'))
         females= 100-males
         age= request.form.get('age')
+        gameType = request.form.get('gameType')
         print("uploading data")
         print(date)
         print(Attendance)
         print(males)
         print(females)
+
         print(eventType)
+        print(gameType)
         print(age)
         try:
             conn = sqlite3.connect(DATABASE1)
@@ -44,15 +51,19 @@ def AddInfo():
             cur.execute("INSERT INTO Events('Date', 'Attendance','male','female')\
             VALUES (?,?,?,?)",(date, Attendance, males, females ))
             cur.execute("INSERT INTO Games('gameType', 'ageRange', 'eventID')\
-            VALUES (?,?,?)", (eventType, age, "1"))
+            VALUES (?,?,(SELECT eventID from Events WHERE type=gameType))", (gameType, age))
             conn.commit()
             msg = "Record successfully added"
         except:
             conn.rollback()
             msg = "please insert data"
         finally:
-            conn.close()
-            return render_template("ChildForm.html", msg=msg)
+            if msg == "Record successfully added":
+                conn.close()
+                return render_template("success.html", msg=msg)
+            else:
+                conn.close()
+                return render_template("ChildForm.html", msg=msg)
 
 @app.route("/NewUser", methods=['GET','POST'])
 def returnNewUser():
