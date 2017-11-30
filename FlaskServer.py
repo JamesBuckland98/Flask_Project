@@ -1,10 +1,25 @@
 import os
 from flask import Flask, redirect, request, render_template
+from flask_mail import Mail, Message
 import sqlite3
+import random
 app = Flask(__name__)
+#Configure Flask-Mail to use GMail
+app.config.update(
+    DEBUG=True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USE_TLS=False,
+    MAIL_USERNAME = 'notabot554@gmail.com',
+    MAIL_PASSWORD = '3KAjFtJCLmsy5d3UHTKwFXRb8wNXPaV3p4WMcCsRmZJ46pfLtWXgseUzT6HhAyp7'
+    )
+mail=Mail(app)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 DATABASE1='EventForm.db'
 DATABASE2='login.db'
+filename='contacts.txt'
+filename2="message.txt"
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
     if request.method=='GET':
@@ -31,7 +46,6 @@ def AddInfo():
         print(gameType)
         print(age)
         try:
-            #Fix Me:
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
             cur.execute("INSERT INTO Events('Date', 'Attendance','male','female')\
@@ -151,7 +165,11 @@ def returnWelcome():
 def returnSuccess():
     if request.method == 'GET':
         return render_template('success.html')
-
-
+@app.route("/email", methods=['GET','POST'])
+def index():
+    msg= Message("Hello",sender="notabot554@gmail.com",recipients=["jamesbuckland98@gmail.com"])
+    msg.body='This is a test email'
+    mail.send(msg)
+    return 'email sent'
 if __name__ == "__main__":
     app.run(debug=True)
