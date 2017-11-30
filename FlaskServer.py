@@ -144,6 +144,10 @@ def returnParent():
     if request.method == 'GET':
         return render_template('ParentTemplate.html')
 
+@app.route("/Pin", methods=['GET'])
+def returnPin():
+    if request.method =='GET':
+        return render_template('pin.html')
 
 @app.route("/Welcome", methods=['GET'])
 def returnWelcome():
@@ -154,11 +158,16 @@ def returnWelcome():
 def returnSuccess():
     if request.method == 'GET':
         return render_template('success.html')
+
 @app.route("/email", methods=['GET','POST'])
 def index():
-    msg= Message("Hello",sender="notabot554@gmail.com",recipients=["jamesbuckland98@gmail.com"])
-    msg.body='This is a test email'
-    mail.send(msg)
-    return 'email sent'
+    if request.method=='GET':
+        return render_template("NewUser.html ")
+    if request.method=='POST':
+        email=username=request.form.get('email')
+        msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
+        msg.body='your pin is: '+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
+        mail.send(msg)
+        return 'email sent'
 if __name__ == "__main__":
     app.run(debug=True)
