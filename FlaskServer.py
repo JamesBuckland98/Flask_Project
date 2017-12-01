@@ -18,8 +18,8 @@ mail=Mail(app)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 DATABASE1='EventForm.db'
 DATABASE2='login.db'
-filename='contacts.txt'
-filename2="message.txt"
+DATABASE3='pin.db'
+customer = {}
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
     if request.method=='GET':
@@ -41,7 +41,6 @@ def AddInfo():
         print(Attendance)
         print(males)
         print(females)
-
         print(eventType)
         print(gameType)
         print(age)
@@ -155,11 +154,6 @@ def returnParent():
     if request.method == 'GET':
         return render_template('ParentTemplate.html')
 
-@app.route("/Pin", methods=['GET'])
-def returnPin():
-    if request.method =='GET':
-        return render_template('pin.html')
-
 @app.route("/Welcome", methods=['GET'])
 def returnWelcome():
     if request.method == 'GET':
@@ -175,10 +169,42 @@ def index():
     if request.method=='GET':
         return render_template("NewUser.html ")
     if request.method=='POST':
-        email=username=request.form.get('email')
+        username=request.form.get('username')
+        password=request.form.get('password')
+        repassword=request.form.get('repassword')
+        email=request.form.get('email')
+        pin=str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
+        print("uploading data")
+        print(username)
+        print(password)
+        print(repassword)
+        print(email)
+        print(pin)
+        customer.update({username:password})
+        print(customer)
+        # FIX THIS:
+        conn = sqlite3.connect(DATABASE3)
+        cur = conn.cursor()
+        cur.execute("INSERT INTO pin('pin')\
+                    VALUES (?)",(pin,))
+        conn.commit()
         msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
-        msg.body='your pin is: '+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
+        msg.body='your pin is: '+ pin
         mail.send(msg)
-        return 'email sent'
+        return redirect("/pin")
+
+@app.route("/pin", methods=['GET','POST'])
+def getPin():
+    if request.method=='GET':
+        return render_template("pin.html")
+    if request.method=='POST':
+        customer_name=list(customer.keys())
+        customer_password=list(customer.items())
+        username=customer_list[0]
+        password=customer_password[0]
+        print(customer)
+        print(username)
+        print(password)
+
 if __name__ == "__main__":
     app.run(debug=True)
