@@ -191,20 +191,44 @@ def index():
         msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
         msg.body='your pin is: '+ pin
         mail.send(msg)
-        return redirect("/pin")
+        conn.close()
+        return redirect("/Pin")
 
-@app.route("/pin", methods=['GET','POST'])
+@app.route("/Pin", methods=['GET','POST'])
 def getPin():
     if request.method=='GET':
         return render_template("pin.html")
     if request.method=='POST':
+        pin=request.form.get('pin')
         customer_name=list(customer.keys())
-        customer_password=list(customer.items())
-        username=customer_list[0]
+        customer_password=list(customer.values())
+        username=customer_name[0]
         password=customer_password[0]
         print(customer)
         print(username)
         print(password)
+        conn=sqlite3.connect(DATABASE3)
+        cur = conn.cursor()
+        cur.execute("SELECT pin FROM pin WHERE pin=?",[pin])
+        data=cur.fetchall()
+    if data==[]:
+        conn.close()
+        msg='pin is incorrect'
+        return render_template("pin.html",msg=msg)
+    else:
+        try:
+            conn=sqlite3.connect(DATABASE2)
+            cur = conn.cursor()
+            cur.execute("INSERT INTO Login ('Username', 'Password')\
+                        VALUES (?,?)",(username, password))
+            conn.commit()
+            msg="data uploaded successfully"
+        except:
+            conn.rollback()
+            msg='Username already exists please try again'
+        finally:
+            conn.close()
+            return render_template("NewUser.html", msg=msg)
 
 if __name__ == "__main__":
     app.run(debug=True)
