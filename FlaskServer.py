@@ -1,22 +1,44 @@
 import os
 from flask import Flask, redirect, request, render_template
+from flask_mail import Mail, Message
+from datetime import datetime
 import sqlite3
+import random
 app = Flask(__name__)
+#Configure Flask-Mail to use GMail
+app.config.update(
+    DEBUG=True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USE_TLS=False,
+    MAIL_USERNAME = 'notabot554@gmail.com',
+    MAIL_PASSWORD = '3KAjFtJCLmsy5d3UHTKwFXRb8wNXPaV3p4WMcCsRmZJ46pfLtWXgseUzT6HhAyp7'
+    )
+mail=Mail(app)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 DATABASE1='EventForm.db'
 DATABASE2='login.db'
+filename='contacts.txt'
+filename2="message.txt"
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
     if request.method=='GET':
         return render_template("ChildForm.HTML")
     if request.method=='POST':
-        date=request.form.get('date')
+        date = request.form.get('date')
+        if date == "":
+            return render_template("ChildForm.html", msg="Please fill in the date.")
         Attendance = request.form.get('attendance')
+        if Attendance == "":
+            return render_template("ChildForm.html", msg="Please fill in the attendance.")
+        if Attendance < 0:
+            return render_template("ChildForm.html", msg="Attendance must be a positive number.")
         eventType = request.form.get('eventType')
         males = int(request.form.get('slider'))
         females= 100-males
         age= request.form.get('age')
-        print("uploading data")
+        print("Uploading data:")
         print(date)
         print(Attendance)
         print(males)
@@ -24,7 +46,6 @@ def AddInfo():
         print(eventType)
         print(age)
         try:
-            #Fix Me:
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
             cur.execute("INSERT INTO Events('Date', 'Attendance','male','female')\
@@ -35,7 +56,7 @@ def AddInfo():
             msg = "Record successfully added"
         except:
             conn.rollback()
-            msg = "please insert data"
+            msg = "Please fill in all fields"
         finally:
             conn.close()
             return render_template("ChildForm.html", msg=msg)
@@ -46,17 +67,21 @@ def returnNewUser():
         return render_template('NewUser.html')
     if request.method=='POST':
         try:
-            username=request.form.get('username', default="Error")
-            password=request.form.get('password', default="Error")
-            repassword=request.form.get('repassword', default="Error")
+            username=request.form.get('username')
+            password=request.form.get('password')
+            repassword=request.form.get('repassword')
+            contactnumber=request.form.get('contactnumber')
+            email=request.form.get('email')
             print("uploading data")
             print(username)
             print(password)
             print(repassword)
+            print(contactnumber)
+            print(email)
             conn=sqlite3.connect(DATABASE2)
             cur = conn.cursor()
-            cur.execute("INSERT INTO Login ('Username', 'Password')\
-						VALUES (?,?)",(username, password))
+            cur.execute("INSERT INTO Login ('Username', 'Password', 'ContactNumber', 'Email')\
+						VALUES (?,?,?,?)",(username, password, contactnumber, email))
             conn.commit()
             msg = "record successfully added"
         except:
@@ -64,7 +89,7 @@ def returnNewUser():
             msg = "error in insert operation"
         finally:
             conn.close()
-            return msg
+            return render_template('NewUser.html', msg=msg)
 
 @app.route("/AdminSearch",methods=['GET', 'POST'])
 def returnAdminSearch():
@@ -130,15 +155,6 @@ def returnParent():
     if request.method == 'GET':
         return render_template('ParentTemplate.html')
 
-@app.route("/Form", methods=['GET'])
-def returnForm():
-    if request.method == 'GET':
-        return render_template('ChildForm.html')
-
-# @app.route("/Login", methods=['GET'])
-# def returnLogin():
-#     if request.method == 'GET':
-#         return render_template('login.html')
 
 @app.route("/Welcome", methods=['GET'])
 def returnWelcome():
@@ -149,7 +165,11 @@ def returnWelcome():
 def returnSuccess():
     if request.method == 'GET':
         return render_template('success.html')
-
-
+@app.route("/email", methods=['GET','POST'])
+def index():
+    msg= Message("Hello",sender="notabot554@gmail.com",recipients=["jamesbuckland98@gmail.com"])
+    msg.body='This is a test email'
+    mail.send(msg)
+    return 'email sent'
 if __name__ == "__main__":
     app.run(debug=True)
