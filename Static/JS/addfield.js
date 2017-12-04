@@ -38,7 +38,7 @@ function myAgeFunction() {
   option2.text = "Juniours (8-17)";
   option3.text = "Seniors (18+)";
   option1.value ="Minis"
-  option2.value ="Juniours"
+  option2.value ="Juniors"
   option3.value ="Seniors"
   AgeGroup.append(select)
   select.add(option0)
