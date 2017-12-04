@@ -1,5 +1,5 @@
 function myEventFunction() {
-  var activity = document.getElementById("activity");
+  var activity = document.getElementById("game");
   var select = document.createElement("select");
   var option0 = document.createElement("option");
   var option1 = document.createElement("option");
@@ -20,13 +20,13 @@ function myEventFunction() {
   option0.setAttribute("disabled", false);
 }
 function myEventFunction2(){
-  var element = document.getElementById("activity");
+  var element = document.getElementById("game");
   element.removeChild(element.lastElementChild);
   element.removeChild(element.lastElementChild);
   element.removeChild(element.lastElementChild);
 }
 function myAgeFunction() {
-  var AgeGroup = document.getElementById("activity");
+  var AgeGroup = document.getElementById("game");
   var br = document.createElement("br");
   var select = document.createElement("select");
   var option0 = document.createElement("option")
@@ -38,7 +38,7 @@ function myAgeFunction() {
   option2.text = "Juniours (8-17)";
   option3.text = "Seniors (18+)";
   option1.value ="Minis"
-  option2.value ="Juniours"
+  option2.value ="Juniors"
   option3.value ="Seniors"
   AgeGroup.append(select)
   select.add(option0)

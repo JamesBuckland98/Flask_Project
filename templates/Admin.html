@@ -1,19 +1,32 @@
 {%extends 'ParentTemplate.html'%}
 {% block title%}
 {{ super() }}
-WRU Event Form
+WRU Admin
 {%endblock%}
+
 
 {% block headBlock%}
 {{ super() }}
-WRU Event Form
+Admin Section
 {%endblock%}
 
 {% block contentBlock%}
 {{ super() }}
-<a href="/Login" class="btn btn-primary btn-lg">Sign out</a>
-<a href="/Form" class="btn btn-primary btn-lg">Form</a>
-<h1> Admin Page </h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Employee Search</a></li>
+      <li><a href="#">Game Search</a></li>
+      <li><a href="#">Create an event</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/Login">Log out</a></li>
+    </ul>
+  </div>
+</nav>
+
+<br>
 <form id=adminForm action="/AdminSearch" method="post">
   <span>Search Date:</span><br>
   <input type="date" id="date" name="date"><br>
@@ -29,7 +42,7 @@ WRU Event Form
   <select name="age">
     <option disabled selected value> -- select an option -- </option>
     <option value="Minis">Minis (4-7)</option>
-    <option value="Juniours">Juniours (8-17)</option>
+    <option value="Juniors">Juniors (8-17)</option>
     <option value="Seniors">Seniors (18+)</option>
   </select>
   <br>
