@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, request, render_template
+from flask import Flask, redirect, request, render_template, session, escape
 from flask_mail import Mail, Message
 import sqlite3
 import random
@@ -20,6 +20,7 @@ DATABASE1='RugbyEvents.db'
 DATABASE2='login.db'
 DATABASE3='pin.db'
 customer = []
+app.secret_key ='gLFdXn6X'
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
     if request.method=='GET':
@@ -93,7 +94,14 @@ def returnNewUser():
 @app.route("/AdminSearch",methods=['GET', 'POST'])
 def returnAdminSearch():
     if request.method == 'GET':
-        return render_template('Admin.html')
+        username=request.cookies.get('username')
+        userType="null"
+        if 'userType' in session:
+            userType= escape(session['userType'])
+        if userType=="admin":
+            return render_template('Admin.html')
+        else:
+            return render_template('ChildForm.html')
     if request.method == 'POST':
         try:
             date= request.form.get('date', default ="Error")
@@ -147,8 +155,16 @@ def returnLogin():
                 conn.close()
                 msg="Username or password is incorrect"
                 return render_template("James_login.html",msg=msg)
+            elif data==[('admin',)] and data2==[('password',)]:
+                print(data)
+                print(data2)
+                session['usertype']='admin'
+                return render_template("Admin.html")
             else:
+                session['userType']= 'staff'
+                session['username']= username
                 return render_template("ChildForm.html")
+
 @app.route("/Parent", methods=['GET'])
 def returnParent():
     if request.method == 'GET':
