@@ -97,7 +97,7 @@ def returnAdminSearch():
         if userType=="admin":
             return render_template('Admin.html')
         else:
-            return render_template('ChildForm.html')
+            return redirect('/Upload')
 
     if request.method == 'POST':
         try:
