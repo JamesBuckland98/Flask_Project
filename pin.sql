@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS Pin;
+
+
+CREATE TABLE IF NOT EXISTS `pin` (
+  `pin`	TEXT NOT NULL,
+  PRIMARY KEY('pin')
+);
