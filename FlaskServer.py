@@ -131,6 +131,7 @@ def returnAdminSearch():
 @app.route("/Login" , methods=['GET', 'POST'])
 def returnLogin():
     if request.method=='GET':
+        session.clear()
         return render_template("James_login.html")
     if request.method=='POST':
         try:
