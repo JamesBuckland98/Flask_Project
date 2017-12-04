@@ -1,6 +1,7 @@
 import os
 from flask import Flask, redirect, request, render_template, session, escape
 from flask_mail import Mail, Message
+from datetime import datetime
 import sqlite3
 import random
 app = Flask(__name__)
@@ -30,9 +31,14 @@ def AddInfo():
         data=cur.fetchall()
         return render_template("ChildForm.HTML", data=data)
     if request.method=='POST':
-        date=request.form.get('date')
-        eventName=request.form.get('eventName')
+        date = request.form.get('date')
+        if date == "":
+            return render_template("ChildForm.html", msg="Please fill in the date.")
         Attendance = request.form.get('attendance')
+        if Attendance == "":
+            return render_template("ChildForm.html", msg="Please fill in the attendance.")
+        if Attendance < 0:
+            return render_template("ChildForm.html", msg="Attendance must be a positive number.")
         eventType = request.form.get('eventType')
         males = int(request.form.get('slider'))
         females= 100-males
@@ -52,7 +58,7 @@ def AddInfo():
             msg = "Record successfully added"
         except:
             conn.rollback()
-            msg = "please insert data"
+            msg = "Please fill in all fields"
         finally:
             if msg == "Record successfully added":
                 conn.close()
@@ -70,14 +76,18 @@ def returnNewUser():
             username=request.form.get('username')
             password=request.form.get('password')
             repassword=request.form.get('repassword')
+            contactnumber=request.form.get('contactnumber')
+            email=request.form.get('email')
             print("uploading data")
             print(username)
             print(password)
             print(repassword)
+            print(contactnumber)
+            print(email)
             conn=sqlite3.connect(DATABASE2)
             cur = conn.cursor()
-            cur.execute("INSERT INTO Login ('Username', 'Password')\
-						VALUES (?,?)",(username, password))
+            cur.execute("INSERT INTO Login ('Username', 'Password', 'ContactNumber', 'Email')\
+						VALUES (?,?,?,?)",(username, password, contactnumber, email))
             conn.commit()
             msg = "record successfully added"
         except:
