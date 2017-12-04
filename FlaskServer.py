@@ -226,6 +226,8 @@ def getPin():
         except:
             conn.rollback()
             msg='Username already exists please try again'
+            customer.clear()
+            print(customer)
         finally:
             conn.close()
             return render_template("NewUser.html", msg=msg)
