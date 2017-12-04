@@ -13,6 +13,12 @@ WRU Event Form
 {% block contentBlock%}
 {{ super() }}
 <form id=NewUser action="/email" method="post">
+  <span> First name </span><br>
+  <input type="text" id="FirstName" name="FirstName"><br>
+
+  <span> Surname </span><br>
+  <input type="text" id="Surname" name="Surname"><br>
+
   <span>Username</span><br>
   <input type="text" id="username" name="username"><br>
 
