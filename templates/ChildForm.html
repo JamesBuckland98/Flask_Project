@@ -23,6 +23,7 @@ WRU Event Form
     <select value="" id="gameType" name="gameType">
       <option disabled selected value> -- select an event -- </option>
       <!-- https://stackoverflow.com/questions/3727045/set-variable-in-jinja -->
+      <!-- https://stackoverflow.com/questions/1465249/get-lengths-of-a-list-in-a-jinja2-template -->
       {% set data = data %}
       {%for i in range(data|length)%}
         <option>{{data[i]}}</option>

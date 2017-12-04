@@ -16,7 +16,7 @@ app.config.update(
     )
 mail=Mail(app)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-DATABASE1='EventForm.db'
+DATABASE1='RugbyEvents.db'
 DATABASE2='login.db'
 DATABASE3='pin.db'
 customer = {}
