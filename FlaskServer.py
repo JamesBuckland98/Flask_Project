@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, request, render_template, session, escape
+from flask import Flask, redirect, request, render_template
 from flask_mail import Mail, Message
 import sqlite3
 import random
@@ -19,8 +19,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 DATABASE1='RugbyEvents.db'
 DATABASE2='login.db'
 DATABASE3='pin.db'
-customer = []
-app.secret_key ='gLFdXn6X'
+customer = {}
 @app.route('/Upload', methods= ['POST','GET'])
 def AddInfo():
     if request.method=='GET':
@@ -31,6 +30,7 @@ def AddInfo():
         return render_template("ChildForm.HTML", data=data)
     if request.method=='POST':
         date=request.form.get('date')
+        eventName=request.form.get('eventName')
         Attendance = request.form.get('attendance')
         eventType = request.form.get('eventType')
         males = int(request.form.get('slider'))
@@ -38,20 +38,15 @@ def AddInfo():
         age= request.form.get('age')
         gameType = request.form.get('gameType')
         print("uploading data")
-        print(date)
-        print(Attendance)
-        print(males)
-        print(females)
-        print(eventType)
-        print(gameType)
-        print(age)
+        print("{} {} {} {} {} {} {} {}".format(date,eventName,Attendance,eventType,males,females,age,gameType))
+
         try:
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
-            cur.execute("INSERT INTO Events('Date', 'Attendance','male','female')\
-            VALUES (?,?,?,?)",(date, Attendance, males, females ))
-            cur.execute("INSERT INTO Games('gameType', 'ageRange', 'eventID')\
-            VALUES (?,?,(SELECT eventID from Events WHERE type=gameType))", (gameType, age))
+            cur.execute("INSERT INTO Activities('Date','eventName','attendance','eventType','male','female')\
+            VALUES (?,?,?,?,?,?)",(date, eventName, Attendance, eventType, males, females ))
+            cur.execute("INSERT INTO Games('gameType', 'ageRange')\
+            VALUES (?,?)", (gameType, age))
             conn.commit()
             msg = "Record successfully added"
         except:
@@ -94,14 +89,7 @@ def returnNewUser():
 @app.route("/AdminSearch",methods=['GET', 'POST'])
 def returnAdminSearch():
     if request.method == 'GET':
-        username=request.cookies.get('username')
-        userType="null"
-        if 'userType' in session:
-            userType= escape(session['userType'])
-        if userType=="admin":
-            return render_template('Admin.html')
-        else:
-            return render_template('ChildForm.html')
+        return render_template('Admin.html')
     if request.method == 'POST':
         try:
             date= request.form.get('date', default ="Error")
@@ -155,16 +143,8 @@ def returnLogin():
                 conn.close()
                 msg="Username or password is incorrect"
                 return render_template("James_login.html",msg=msg)
-            elif data==[('admin',)] and data2==[('password',)]:
-                print(data)
-                print(data2)
-                session['usertype']='admin'
-                return render_template("Admin.html")
             else:
-                session['userType']= 'staff'
-                session['username']= username
                 return render_template("ChildForm.html")
-
 @app.route("/Parent", methods=['GET'])
 def returnParent():
     if request.method == 'GET':
@@ -189,23 +169,16 @@ def index():
         password=request.form.get('password')
         repassword=request.form.get('repassword')
         email=request.form.get('email')
-        FirstName=request.form.get('FirstName')
-        surname=request.form.get('Surname')
         pin=str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
         print("uploading data")
-        print(FirstName)
-        print(surname)
         print(username)
         print(password)
         print(repassword)
         print(email)
         print(pin)
-        customer.append(FirstName)
-        customer.append(surname)
-        customer.append(email)
-        customer.append(username)
-        customer.append(password)
+        customer.update({username:password})
         print(customer)
+        # FIX THIS:
         conn = sqlite3.connect(DATABASE3)
         cur = conn.cursor()
         cur.execute("INSERT INTO pin('pin')\
@@ -223,14 +196,11 @@ def getPin():
         return render_template("pin.html")
     if request.method=='POST':
         pin=request.form.get('pin')
-        FirstName=customer[0]
-        surname=customer[1]
-        email=customer[2]
-        username=customer[3]
-        password=customer[4]
+        customer_name=list(customer.keys())
+        customer_password=list(customer.values())
+        username=customer_name[0]
+        password=customer_password[0]
         print(customer)
-        print(FirstName)
-        print(surname)
         print(username)
         print(password)
         conn=sqlite3.connect(DATABASE3)
@@ -245,18 +215,14 @@ def getPin():
         try:
             conn=sqlite3.connect(DATABASE2)
             cur = conn.cursor()
-            cur.execute("INSERT INTO Login ('FirstName','Surname','Email','Username', 'Password')\
-                        VALUES (?,?,?,?,?)",(FirstName,surname, email, username, password))
+            cur.execute("INSERT INTO Login ('Username', 'Password')\
+                        VALUES (?,?)",(username, password))
             conn.commit()
-            while len(customer)>0:
-                customer.pop()
-            print(customer)
             msg="data uploaded successfully"
         except:
             conn.rollback()
             msg='Username already exists please try again'
-            while len(customer)>0:
-                customer.pop()
+            customer.clear()
             print(customer)
         finally:
             conn.close()

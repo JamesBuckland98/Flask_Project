@@ -19,8 +19,8 @@ WRU Event Form
   <input type="date" id="date" name="date"><br>
 
   <span>Event Name:</span><br>
-  <div id="eventName">
-    <select value="" id="gameType" name="gameType">
+  <div id="eventNames">
+    <select value="" id="eventName" name="eventName">
       <option disabled selected value> -- select an event -- </option>
       <!-- https://stackoverflow.com/questions/3727045/set-variable-in-jinja -->
       <!-- https://stackoverflow.com/questions/1465249/get-lengths-of-a-list-in-a-jinja2-template -->
@@ -63,7 +63,7 @@ WRU Event Form
   <button type="button" name="add" onclick="myEventFunction(); myAgeFunction()" onclick=""> Add another game </button>
   <button type="button" name="delete" onclick="myEventFunction2()"> Delete game </button>
   <br>
-  <span>Game type:</span>
+  <span>Game:</span>
   <div id="game">
   <select value="Game" id="gameType" name="gameType">
     <option disabled selected value> -- select a game type -- </option>
@@ -93,5 +93,4 @@ WRU Event Form
 <script type="text/javascript" src="../static/js/addfield.js"></script>
 <script type="text/javascript" src="../static/js/submit.js"></script>
 <script type="text/javascript" src="../static/js/eventvalidation.js"></script>
-<script type="text/javascript" src="../static/js/gameoptions.js"></script>
 {%endblock%}
