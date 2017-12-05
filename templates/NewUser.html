@@ -12,38 +12,39 @@ WRU Event Form
 
 {% block contentBlock%}
 {{ super() }}
-<form id=NewUser action="/email" method="post">
+<form id=NewUser  action="/email" method="post" onsumbit="return ValidateNewUserForm()">
   <span> First name </span><br>
-  <input type="text" id="FirstName" name="FirstName"><br>
+  <input type="text" id="FirstName" maxlength="30" name="FirstName"><br>
 
   <span> Surname </span><br>
-  <input type="text" id="Surname" name="Surname"><br>
+  <input type="text" id="Surname" max length="30"name="Surname"><br>
 
   <span>Username</span><br>
-  <input type="text" id="username" name="username"><br>
+  <input type="text" id="username" max length="10" name="username"><br>
 
   <span>Email</span><br>
   <input type="email" id="email" name="email"><br>
 
   <span>Contact Number</span><br>
-  <input type="contact number" id="contactnumber" name="contactnumber"><br>
+  <input type="contact number" id="contactnumber" max length="11" name="contactnumber"><br>
 
   <span>Password</span><br>
-  <input type="password" id="password" name="password"><br>
+  <input type="password" id="password" max length="20" name="password"><br>
 
   <span>Re-enter Password</span><br>
-  <input type="password" id="repassword" name="repassword"><br>
+  <input type="password" id="repassword" max length="20" name="repassword"><br>
 
   <span>{{msg}}</span><br>
-  <button type="submit" class="btn btn-primary btn-lg" onclick="myFunction()"> Create new user </button>
+  <button type="submit" class="btn btn-primary btn-lg" onclick="ValidateNewUserForm()"> Create new user </button>
   <a href="/Login" class="btn btn-primary btn-lg"> Back </a>
 </form>
 
-  <script type="text/javascript" src="../static/js/NewUser.js"></script>
 
 {%endblock%}
 
 {% block scriptsBlock%}
 {{ super() }}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/NewUser.js"></script>
 <!-- javascriptgoes here -->
 {%endblock%}
