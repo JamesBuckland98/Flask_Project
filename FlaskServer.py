@@ -159,6 +159,30 @@ def returnUserSearch():
         else:
             return redirect('/Upload')
 
+    if request.method == 'POST':
+        try:
+            name= request.form.get('EmployeeName')
+            email= request.form.get('EmployeeEmail')
+
+            print(name)
+            print(email)
+
+            conn = sqlite3.connect(DATABASE2)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM Login WHERE FirstName=? ",[name])
+            data=cur.fetchall()
+            cur.execute("SELECT * FROM Login WHERE Email=?",[email])
+            data2=cur.fetchall()
+            print(data)
+            print(data2)
+        except:
+            print('Error with', data)
+            conn.close()
+        finally:
+            conn.close()
+            return render_template("UserSearchResults.html", data= data, data2=data2)
+
+
 @app.route("/AddEvent", methods=['GET','POST'])
 def addNewEvent():
     if request.method =='GET':
