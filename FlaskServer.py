@@ -119,7 +119,7 @@ def returnAdminSearch():
         if userType=="admin":
             return render_template('Admin.html')
         else:
-            return render_template('ChildForm.html')
+            return redirect('/Upload')
 
     if request.method == 'POST':
         try:
@@ -190,12 +190,12 @@ def returnLogin():
             elif data==[('admin',)] and data2==[('password',)]:
                 session['userType']='admin'
                 print(session['userType'])
-                return render_template("Admin.html")
+                return redirect("/AdminSearch")
             else:
                 session['userType']= 'staff'
                 session['username']= username
                 print(session['userType'])
-                return render_template("ChildForm.html")
+                return redirect("/Upload")
 @app.route("/Parent", methods=['GET'])
 def returnParent():
     if request.method == 'GET':
@@ -229,23 +229,28 @@ def index():
         print(repassword)
         print(email)
         print(pin)
-        customer.append(FirstName)
-        customer.append(surname)
-        customer.append(email)
-        customer.append(username)
-        customer.append(password)
-        print(customer)
         # FIX THIS:
-        conn = sqlite3.connect(DATABASE3)
-        cur = conn.cursor()
-        cur.execute("INSERT INTO pin('pin')\
-                    VALUES (?)",(pin,))
-        conn.commit()
-        msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
-        msg.body='your pin is: '+ pin
-        mail.send(msg)
-        conn.close()
-        return redirect("/Pin")
+        try:
+            customer.insert(0,password)
+            customer.insert(0,username)
+            customer.insert(0,email)
+            customer.insert(0,surname)
+            customer.insert(0,FirstName)
+            print(customer)
+            msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
+            msg.body='your pin is: '+ pin
+            mail.send(msg)
+            conn = sqlite3.connect(DATABASE3)
+            cur = conn.cursor()
+            cur.execute("INSERT INTO pin('pin')\
+                        VALUES (?)",(pin,))
+            conn.commit()
+            conn.close()
+            return redirect("/Pin")
+        except:
+            msg="please insert data"
+            return render_template("NewUser.html", msg=msg)
+
 
 @app.route("/Pin", methods=['GET','POST'])
 def getPin():
