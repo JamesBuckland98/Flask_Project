@@ -1,0 +1,46 @@
+{%extends 'ParentTemplate.html'%}
+{% block title%}
+{{ super() }}
+WRU Admin
+{%endblock%}
+
+
+{% block headBlock%}
+{{ super() }}
+Admin Section
+{%endblock%}
+
+{% block contentBlock%}
+{{ super() }}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/Upload">Form</a></li>
+      <li><a href="/EmployeeSearch">Employee Search</a></li>
+      <li><a href="/AdminSearch">Game Search</a></li>
+      <li><a href="#">Create an event</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/Login">Log out</a></li>
+    </ul>
+  </div>
+</nav>
+
+<br>
+<h1>Search Employee</h1>
+<form id=employeeForm action="/EmployeeSearch" method="post">
+  <span>Search by name:</span><br>
+  <input type="text" id="EmployeeName" name="EmployeeName"><br>
+
+  <span>Search by email:</span><br>
+  <input type="text" id="EmployeeEmail" name="EmployeeEmail"><br>
+
+  <br>
+  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+{%endblock%}
+
+{% block scriptsBlock%}
+{{ super() }}
+<!-- javascriptgoes here -->
+{%endblock%}
