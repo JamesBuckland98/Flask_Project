@@ -40,7 +40,7 @@ def AddInfo():
         Attendance = request.form.get('attendance')
         if Attendance == "":
             return render_template("ChildForm.html", msg="Please fill in Attendance.")
-        elif Attendance < 0:
+        elif int(Attendance) < 0:
             return render_template("ChildForm.html", msg="Please set Attendance greater than 0.")
         # try:
         #     except ValueError:
