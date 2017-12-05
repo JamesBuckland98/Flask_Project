@@ -45,7 +45,7 @@ def AddInfo():
         # try:
         #     except ValueError:
         #         return render_template("ChildForm.html", msg= "Please set a valid Attendance number.")
-        # eventType = request.form.get('eventType')
+        eventType = request.form.get('eventType')
         if eventType == "":
             return render_template("ChildForm.html", msg= "Please select an Event type.")
         males = int(request.form.get('slider'))
