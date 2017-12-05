@@ -37,11 +37,11 @@ def AddInfo():
         eventName = request.form.get('eventName')
         if eventName == "":
             return render_template("ChildForm.html", msg="Please select an Event.")
-        # Attendance = int(request.form.get('attendance'))
-        # if Attendance == "":
-        #     return render_template("ChildForm.html", msg="Please fill in Attendance.")
-        # elif Attendance < 0:
-        #     return render_template("ChildForm.html", msg="Please set Attendance greater than 0.")
+        Attendance = request.form.get('attendance')
+        if Attendance == "":
+            return render_template("ChildForm.html", msg="Please fill in Attendance.")
+        elif Attendance < 0:
+            return render_template("ChildForm.html", msg="Please set Attendance greater than 0.")
         # try:
         #     except ValueError:
         #         return render_template("ChildForm.html", msg= "Please set a valid Attendance number.")
