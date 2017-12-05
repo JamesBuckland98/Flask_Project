@@ -31,31 +31,35 @@ def AddInfo():
         data=cur.fetchall()
         return render_template("ChildForm.HTML", data=data)
     if request.method=='POST':
+        conn = sqlite3.connect(DATABASE1)
+        cur = conn.cursor()
+        cur.execute("SELECT eventName FROM Events")
+        data=cur.fetchall()
         date = request.form.get('date')
         if date == "":
-            return render_template("ChildForm.html", msg="Please select a Date.")
+            return render_template("ChildForm.html", msg="Please select a Date.",data=data)
         eventName = request.form.get('eventName')
         if eventName == "":
-            return render_template("ChildForm.html", msg="Please select an Event.")
+            return render_template("ChildForm.html", msg="Please select an Event.",data=data)
         Attendance = request.form.get('attendance')
         if Attendance == "":
-            return render_template("ChildForm.html", msg="Please fill in Attendance.")
+            return render_template("ChildForm.html", msg="Please fill in Attendance.",data=data)
         elif int(Attendance) < 0:
-            return render_template("ChildForm.html", msg="Please set Attendance greater than 0.")
+            return render_template("ChildForm.html", msg="Please set Attendance greater than 0.",data=data)
         # try:
         #     except ValueError:
         #         return render_template("ChildForm.html", msg= "Please set a valid Attendance number.")
         eventType = request.form.get('eventType')
         if eventType == "":
-            return render_template("ChildForm.html", msg= "Please select an Event type.")
+            return render_template("ChildForm.html", msg= "Please select an Event type.",data=data)
         males = int(request.form.get('slider'))
         females = 100-males
         age = request.form.get('age')
         if age == "":
-            return render_template("ChildForm.html", msg="Please select an Age.")
+            return render_template("ChildForm.html", msg="Please select an Age.",data=data)
         gameType = request.form.get('gameType')
         if gameType == "":
-            return render_template("ChildForm.html", msg="Please select a Game.")
+            return render_template("ChildForm.html", msg="Please select a Game.",data=data)
         print("uploading data - ")
         print("{} {} {} {} {} {} {} {}".format(date,eventName,Attendance,eventType,males,females,age,gameType))
 
