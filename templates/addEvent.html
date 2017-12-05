@@ -1,13 +1,13 @@
 {%extends 'ParentTemplate.html'%}
+
 {% block title%}
 {{ super() }}
-WRU Admin
+WRU Event Form
 {%endblock%}
-
 
 {% block headBlock%}
 {{ super() }}
-Admin Section
+WRU Event Form
 {%endblock%}
 
 {% block contentBlock%}
@@ -25,18 +25,11 @@ Admin Section
     </ul>
   </div>
 </nav>
-
-<br>
-<h1>Search Employee</h1>
-<form id=employeeForm action="/EmployeeSearch" method="post">
-  <span>Search by name:</span><br>
-  <input type="text" id="EmployeeName" name="EmployeeName"><br>
-
-  <span>Search by email:</span><br>
-  <input type="text" id="EmployeeEmail" name="EmployeeEmail"><br>
-
-  <br>
-  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+<form id="EventForm" action="/AddEvent" method="post">
+  <span> Add New Event </span> <br>
+  <input type="text" id="NewEvent" name="NewEvent"><br>
+  <span>{{msg}}</span><br>
+  <button type="submit" class="btn btn-primary btn-lg"> Create Event </button>
 </form>
 {%endblock%}
 

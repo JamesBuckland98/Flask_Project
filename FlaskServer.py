@@ -157,7 +157,35 @@ def returnUserSearch():
         if userType=="admin":
             return render_template('UserSearch.html')
         else:
-            return render_template('ChildForm.html')
+            return redirect('/Upload')
+
+@app.route("/AddEvent", methods=['GET','POST'])
+def addNewEvent():
+    if request.method =='GET':
+        username=request.cookies.get('username')
+        userType=request.cookies.get('userType')
+        if 'userType' in session:
+            userType= escape(session['userType'])
+        if userType=="admin":
+            return render_template('addEvent.html')
+        else:
+            return redirect('/Upload')
+    if request.method=='POST':
+        NewEvent=request.form.get('NewEvent')
+        try:
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("INSERT INTO Login ('eventName')\
+						VALUES (?)",(NewEvent))
+            conn.commit()
+            msg="data uploaded successfully"
+        except:
+            conn.rollback()
+            msg="Event already exists"
+        finally:
+            conn.close()
+            return render_template("addEvent.html", msg=msg)
+
 
 @app.route("/Login" , methods=['GET', 'POST'])
 def returnLogin():
@@ -196,6 +224,7 @@ def returnLogin():
                 session['username']= username
                 print(session['userType'])
                 return redirect("/Upload")
+
 @app.route("/Parent", methods=['GET'])
 def returnParent():
     if request.method == 'GET':
@@ -229,7 +258,6 @@ def index():
         print(repassword)
         print(email)
         print(pin)
-        # FIX THIS:
         try:
             customer.insert(0,password)
             customer.insert(0,username)
