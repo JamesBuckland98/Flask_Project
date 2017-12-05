@@ -166,12 +166,12 @@ def returnLogin():
             elif data==[('admin',)] and data2==[('password',)]:
                 session['userType']='admin'
                 print(session['userType'])
-                return render_template("Admin.html")
+                return redirect("/AdminSearch")
             else:
                 session['userType']= 'staff'
                 session['username']= username
                 print(session['userType'])
-                return render_template("ChildForm.html")
+                return redirect("/Upload")
 @app.route("/Parent", methods=['GET'])
 def returnParent():
     if request.method == 'GET':
