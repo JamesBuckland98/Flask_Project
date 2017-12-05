@@ -45,7 +45,7 @@ def AddInfo():
         # try:
         #     except ValueError:
         #         return render_template("ChildForm.html", msg= "Please set a valid Attendance number.")
-        # eventType = request.form.get('eventType')
+        eventType = request.form.get('eventType')
         if eventType == "":
             return render_template("ChildForm.html", msg= "Please select an Event type.")
         males = int(request.form.get('slider'))
@@ -123,9 +123,9 @@ def returnAdminSearch():
 
     if request.method == 'POST':
         try:
-            date= request.form.get('date', default ="Error")
-            game= request.form.get('eventType', default="Error")
-            age= request.form.get('age', default="Error")
+            date= request.form.get('date')
+            game= request.form.get('eventType')
+            age= request.form.get('age')
             print(date)
             print(game)
             print(age)
@@ -203,15 +203,42 @@ def DelEvent():
             conn.close()
             return render_template("addEvent.html", msg2=msg)
 
+<<<<<<< HEAD
 @app.route("/Login", methods=['GET', 'POST'])
+=======
+    if request.method == 'POST':
+        try:
+            name= request.form.get('EmployeeName')
+            email= request.form.get('EmployeeEmail')
+
+            print(name)
+            print(email)
+
+            conn = sqlite3.connect(DATABASE2)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM Login WHERE FirstName=? ",[name])
+            data=cur.fetchall()
+            cur.execute("SELECT * FROM Login WHERE Email=?",[email])
+            data2=cur.fetchall()
+            print(data)
+            print(data2)
+        except:
+            print('Error with', data)
+            conn.close()
+        finally:
+            conn.close()
+            return render_template("AdminTable.html", data= data, data2=data2)
+
+@app.route("/Login" , methods=['GET', 'POST'])
+>>>>>>> ccaed8ca414aa08de95780fdaa27c80931eaef34
 def returnLogin():
     if request.method=='GET':
         session.clear()
         return render_template("James_login.html")
     if request.method=='POST':
         try:
-            username=request.form.get('username', default="Error")
-            password=request.form.get('password', default="Error")
+            username=request.form.get('username')
+            password=request.form.get('password')
             print("fetching data")
             print(username)
             print(password)
