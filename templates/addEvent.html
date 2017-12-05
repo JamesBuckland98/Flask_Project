@@ -1,0 +1,45 @@
+{%extends 'ParentTemplate.html'%}
+
+{% block title%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block headBlock%}
+{{ super() }}
+WRU Event Form
+{%endblock%}
+
+{% block contentBlock%}
+{{ super() }}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/Upload">Form</a></li>
+      <li><a href="/EmployeeSearch">Employee Search</a></li>
+      <li><a href="/AdminSearch">Game Search</a></li>
+      <li><a href="/AddEvent">Create an event</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/Login">Log out</a></li>
+    </ul>
+  </div>
+</nav>
+<form id="EventForm" action="/AddEvent" method="post">
+  <span> Add New Event </span> <br>
+  <input type="text" id="NewEvent" name="NewEvent"><br>
+  <span>{{msg1}}</span><br>
+  <button type="submit" class="btn btn-primary btn-lg"> Create Event </button>
+</form>
+<form id="DelEventForm" action="/DeleteEvent" method="post">
+  <span> Delete an Event </span> <br>
+  <input type="text" id="DelEvent" name="DelEvent"><br>
+  <span>{{msg2}}</span><br>
+  <button type="submit" class="btn btn-primary btn-lg"> Create Event </button>
+</form>
+{%endblock%}
+
+{% block scriptsBlock%}
+{{ super() }}
+<!-- javascriptgoes here -->
+{%endblock%}

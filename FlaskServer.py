@@ -37,11 +37,11 @@ def AddInfo():
         eventName = request.form.get('eventName')
         if eventName == "":
             return render_template("ChildForm.html", msg="Please select an Event.")
-        # Attendance = int(request.form.get('attendance'))
-        # if Attendance == "":
-        #     return render_template("ChildForm.html", msg="Please fill in Attendance.")
-        # elif Attendance < 0:
-        #     return render_template("ChildForm.html", msg="Please set Attendance greater than 0.")
+        Attendance = request.form.get('attendance')
+        if Attendance == "":
+            return render_template("ChildForm.html", msg="Please fill in Attendance.")
+        elif Attendance < 0:
+            return render_template("ChildForm.html", msg="Please set Attendance greater than 0.")
         # try:
         #     except ValueError:
         #         return render_template("ChildForm.html", msg= "Please set a valid Attendance number.")
@@ -147,7 +147,63 @@ def returnAdminSearch():
             conn.close()
             return render_template("AdminTable.html", data= data, data2=data2, data3= data3)
 
-@app.route("/Login" , methods=['GET', 'POST'])
+@app.route("/EmployeeSearch",methods=['GET', 'POST'])
+def returnUserSearch():
+    if request.method == 'GET':
+        username=request.cookies.get('username')
+        userType=request.cookies.get('userType')
+        if 'userType' in session:
+            userType= escape(session['userType'])
+        if userType=="admin":
+            return render_template('UserSearch.html')
+        else:
+            return redirect('/Upload')
+
+@app.route("/AddEvent", methods=['GET','POST'])
+def addNewEvent():
+    if request.method =='GET':
+        username=request.cookies.get('username')
+        userType=request.cookies.get('userType')
+        if 'userType' in session:
+            userType= escape(session['userType'])
+        if userType=="admin":
+            return render_template('addEvent.html')
+        else:
+            return redirect('/Upload')
+    if request.method=='POST':
+        try:
+            NewEvent=request.form.get('NewEvent')
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("INSERT INTO Events('eventName')\
+						VALUES (?)",(NewEvent,))
+            conn.commit()
+            msg="data uploaded successfully"
+        except:
+            conn.rollback()
+            msg="Event already exists"
+        finally:
+            conn.close()
+            return render_template("addEvent.html", msg1=msg)
+
+# @app.route("/DeleteEvent", methods=['POST'])
+# def DelEvent():
+#     if request.method=='POST':
+#         Event=request.form.get('DelEvent')
+#         try:
+#             conn = sqlite3.connect(DATABASE1)
+#             cur = conn.cursor()
+#             cur.execute("DELETE FROM Event WHERE VALUES (?)",(Event))
+#             conn.commit()
+#             msg="data successfully deleted"
+#         except:
+#             conn.rollback()
+#             msg="Event does not exist"
+#         finally:
+#             conn.close()
+#             return render_template("addEvent.html", msg2=msg)
+
+@app.route("/Login", methods=['GET', 'POST'])
 def returnLogin():
     if request.method=='GET':
         session.clear()
@@ -184,6 +240,7 @@ def returnLogin():
                 session['username']= username
                 print(session['userType'])
                 return redirect("/Upload")
+
 @app.route("/Parent", methods=['GET'])
 def returnParent():
     if request.method == 'GET':
@@ -217,23 +274,27 @@ def index():
         print(repassword)
         print(email)
         print(pin)
-        customer.append(FirstName)
-        customer.append(surname)
-        customer.append(email)
-        customer.append(username)
-        customer.append(password)
-        print(customer)
-        # FIX THIS:
-        conn = sqlite3.connect(DATABASE3)
-        cur = conn.cursor()
-        cur.execute("INSERT INTO pin('pin')\
-                    VALUES (?)",(pin,))
-        conn.commit()
-        msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
-        msg.body='your pin is: '+ pin
-        mail.send(msg)
-        conn.close()
-        return redirect("/Pin")
+        try:
+            customer.insert(0,password)
+            customer.insert(0,username)
+            customer.insert(0,email)
+            customer.insert(0,surname)
+            customer.insert(0,FirstName)
+            print(customer)
+            msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
+            msg.body='your pin is: '+ pin
+            mail.send(msg)
+            conn = sqlite3.connect(DATABASE3)
+            cur = conn.cursor()
+            cur.execute("INSERT INTO pin('pin')\
+                        VALUES (?)",(pin,))
+            conn.commit()
+            conn.close()
+            return redirect("/Pin")
+        except:
+            msg="please insert data"
+            return render_template("NewUser.html", msg=msg)
+
 
 @app.route("/Pin", methods=['GET','POST'])
 def getPin():
