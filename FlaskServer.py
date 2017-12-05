@@ -33,18 +33,30 @@ def AddInfo():
     if request.method=='POST':
         date = request.form.get('date')
         if date == "":
-            return render_template("ChildForm.html", msg="Please fill in the date.")
-        Attendance = request.form.get('attendance')
-        if Attendance == "":
-            return render_template("ChildForm.html", msg="Please fill in the attendance.")
-        if Attendance < 0:
-            return render_template("ChildForm.html", msg="Attendance must be a positive number.")
-        eventType = request.form.get('eventType')
+            return render_template("ChildForm.html", msg="Please select a Date.")
+        eventName = request.form.get('eventName')
+        if eventName == "":
+            return render_template("ChildForm.html", msg="Please select an Event.")
+        # Attendance = int(request.form.get('attendance'))
+        # if Attendance == "":
+        #     return render_template("ChildForm.html", msg="Please fill in Attendance.")
+        # elif Attendance < 0:
+        #     return render_template("ChildForm.html", msg="Please set Attendance greater than 0.")
+        # try:
+        #     except ValueError:
+        #         return render_template("ChildForm.html", msg= "Please set a valid Attendance number.")
+        # eventType = request.form.get('eventType')
+        if eventType == "":
+            return render_template("ChildForm.html", msg= "Please select an Event type.")
         males = int(request.form.get('slider'))
-        females= 100-males
-        age= request.form.get('age')
+        females = 100-males
+        age = request.form.get('age')
+        if age == "":
+            return render_template("ChildForm.html", msg="Please select an Age.")
         gameType = request.form.get('gameType')
-        print("uploading data")
+        if gameType == "":
+            return render_template("ChildForm.html", msg="Please select a Game.")
+        print("uploading data - ")
         print("{} {} {} {} {} {} {} {}".format(date,eventName,Attendance,eventType,males,females,age,gameType))
 
         try:
@@ -58,7 +70,7 @@ def AddInfo():
             msg = "Record successfully added"
         except:
             conn.rollback()
-            msg = "Please fill in all fields"
+            msg = "Please fill in all fields correctly"
         finally:
             if msg == "Record successfully added":
                 conn.close()
