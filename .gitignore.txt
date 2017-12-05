@@ -1,4 +1,0 @@
-/login.db
-/pin.db
-/EventForm.db
-/RugbyEvents.db
