@@ -186,22 +186,22 @@ def addNewEvent():
             conn.close()
             return render_template("addEvent.html", msg1=msg)
 
-# @app.route("/DeleteEvent", methods=['POST'])
-# def DelEvent():
-#     if request.method=='POST':
-#         Event=request.form.get('DelEvent')
-#         try:
-#             conn = sqlite3.connect(DATABASE1)
-#             cur = conn.cursor()
-#             cur.execute("DELETE FROM Event WHERE VALUES (?)",(Event))
-#             conn.commit()
-#             msg="data successfully deleted"
-#         except:
-#             conn.rollback()
-#             msg="Event does not exist"
-#         finally:
-#             conn.close()
-#             return render_template("addEvent.html", msg2=msg)
+@app.route("/DeleteEvent", methods=['POST'])
+def DelEvent():
+    if request.method=='POST':
+        try:
+            Event=request.form.get('DelEvent')
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("DELETE FROM Events WHERE eventName=?",(Event,))
+            conn.commit()
+            msg="data successfully deleted"
+        except:
+            conn.rollback()
+            msg="Event does not exist"
+        finally:
+            conn.close()
+            return render_template("addEvent.html", msg2=msg)
 
 @app.route("/Login", methods=['GET', 'POST'])
 def returnLogin():
