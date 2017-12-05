@@ -27,25 +27,14 @@ Admin Section
 </nav>
 
 <br>
-<h1>Game Search</h1>
-<form id=adminForm action="/AdminSearch" method="post">
-  <span>Search Date:</span><br>
-  <input type="date" id="date" name="date"><br>
+<h1>Search Employee</h1>
+<form id=employeeForm action="/EmployeeSearch" method="post">
+  <span>Search by name:</span><br>
+  <input type="text" id="EmployeeName" name="EmployeeName"><br>
 
-  <span>Search Type of Games:</span><br>
-  <select value="Event" id="eventType" name="eventType">
-    <option disabled selected value> -- select an option -- </option>
-    <option value="Tag">Tag</option>
-    <option value="Touch">Touch</option>
-    <option value="Contact">Contact</option>
-  </select>
+  <span>Search by email:</span><br>
+  <input type="text" id="EmployeeEmail" name="EmployeeEmail"><br>
 
-  <select name="age">
-    <option disabled selected value> -- select an option -- </option>
-    <option value="Minis">Minis (4-7)</option>
-    <option value="Juniors">Juniors (8-17)</option>
-    <option value="Seniors">Seniors (18+)</option>
-  </select>
   <br>
   <button type="submit" class="btn btn-primary btn-lg">Submit</button>
 </form>
