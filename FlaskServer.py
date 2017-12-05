@@ -217,23 +217,28 @@ def index():
         print(repassword)
         print(email)
         print(pin)
-        customer.append(FirstName)
-        customer.append(surname)
-        customer.append(email)
-        customer.append(username)
-        customer.append(password)
-        print(customer)
         # FIX THIS:
-        conn = sqlite3.connect(DATABASE3)
-        cur = conn.cursor()
-        cur.execute("INSERT INTO pin('pin')\
-                    VALUES (?)",(pin,))
-        conn.commit()
-        msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
-        msg.body='your pin is: '+ pin
-        mail.send(msg)
-        conn.close()
-        return redirect("/Pin")
+        try:
+            customer.insert(0,password)
+            customer.insert(0,username)
+            customer.insert(0,email)
+            customer.insert(0,surname)
+            customer.insert(0,FirstName)
+            print(customer)
+            msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
+            msg.body='your pin is: '+ pin
+            mail.send(msg)
+            conn = sqlite3.connect(DATABASE3)
+            cur = conn.cursor()
+            cur.execute("INSERT INTO pin('pin')\
+                        VALUES (?)",(pin,))
+            conn.commit()
+            conn.close()
+            return redirect("/Pin")
+        except:
+            msg="please insert data"
+            return render_template("NewUser.html", msg=msg)
+
 
 @app.route("/Pin", methods=['GET','POST'])
 def getPin():
