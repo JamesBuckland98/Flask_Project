@@ -1,0 +1,61 @@
+{%extends 'ParentTemplate.html'%}
+{% block title%}
+{{ super() }}
+Employee Search results
+{%endblock%}
+
+{% block headBlock%}
+{{ super() }}
+Employee Search Results
+{%endblock%}
+
+{% block contentBlock%}
+{{ super() }}
+<a href="/EmployeeSearch" class="btn btn-primary btn-lg">Back</a>
+<h1> Name search: </h1>
+<table>
+  <thead>
+    <td><span>UserID</span></td>
+    <td><span>First name</span></td>
+    <td><span>Surname</span></td>
+    <td><span>Email</span></td>
+    <td><span>Username</span></td>
+    <td><span>Password</span></td>
+  </thead>
+  {%for row in data%}
+  <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+    <td>{{row[4]}}</td>
+    <td>{{row[5]}}</td>
+  </tr>
+  {%endfor%}
+</table>
+<h2> Email search </h2>
+<table>
+  <thead>
+    <td><span>UserID</span></td>
+    <td><span>First name</span></td>
+    <td><span>Surname</span></td>
+    <td><span>Email</span></td>
+    <td><span>Username</span></td>
+    <td><span>Password</span></td>
+  </thead>
+  {%for row in data2%}
+  <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+    <td>{{row[4]}}</td>
+    <td>{{row[5]}}</td>
+  </tr>
+  {%endfor%}
+</table>
+{%endblock%}
+{% block scriptsBlock%}
+{{ super() }}
+<!-- javascriptgoes here -->
+{%endblock%}
