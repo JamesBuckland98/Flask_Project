@@ -203,7 +203,6 @@ def DelEvent():
             conn.close()
             return render_template("addEvent.html", msg2=msg)
 
-<<<<<<< HEAD
 @app.route("/Login", methods=['GET', 'POST'])
 =======
     if request.method == 'POST':
