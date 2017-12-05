@@ -147,6 +147,18 @@ def returnAdminSearch():
             conn.close()
             return render_template("AdminTable.html", data= data, data2=data2, data3= data3)
 
+@app.route("/EmployeeSearch",methods=['GET', 'POST'])
+def returnUserSearch():
+    if request.method == 'GET':
+        username=request.cookies.get('username')
+        userType=request.cookies.get('userType')
+        if 'userType' in session:
+            userType= escape(session['userType'])
+        if userType=="admin":
+            return render_template('UserSearch.html')
+        else:
+            return render_template('ChildForm.html')
+
 @app.route("/Login" , methods=['GET', 'POST'])
 def returnLogin():
     if request.method=='GET':
