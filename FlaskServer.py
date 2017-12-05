@@ -45,7 +45,7 @@ def AddInfo():
         # try:
         #     except ValueError:
         #         return render_template("ChildForm.html", msg= "Please set a valid Attendance number.")
-        eventType = request.form.get('eventType')
+        # eventType = request.form.get('eventType')
         if eventType == "":
             return render_template("ChildForm.html", msg= "Please select an Event type.")
         males = int(request.form.get('slider'))
@@ -123,9 +123,9 @@ def returnAdminSearch():
 
     if request.method == 'POST':
         try:
-            date= request.form.get('date')
-            game= request.form.get('eventType')
-            age= request.form.get('age')
+            date= request.form.get('date', default ="Error")
+            game= request.form.get('eventType', default="Error")
+            age= request.form.get('age', default="Error")
             print(date)
             print(game)
             print(age)
@@ -171,12 +171,12 @@ def addNewEvent():
         else:
             return redirect('/Upload')
     if request.method=='POST':
-        NewEvent=request.form.get('NewEvent')
         try:
+            NewEvent=request.form.get('NewEvent')
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
             cur.execute("INSERT INTO Events('eventName')\
-						VALUES (?)",(NewEvent))
+						VALUES (?)",(NewEvent,))
             conn.commit()
             msg="data uploaded successfully"
         except:
@@ -186,59 +186,32 @@ def addNewEvent():
             conn.close()
             return render_template("addEvent.html", msg1=msg)
 
-@app.route("/DeleteEvent", methods=['POST'])
-def DelEvent():
-    if request.method=='POST':
-        Event=request.form.get('DelEvent')
-        try:
-            conn = sqlite3.connect(DATABASE1)
-            cur = conn.cursor()
-            cur.execute("DELETE FROM Event WHERE VALUES (?)",(Event))
-            conn.commit()
-            msg="data successfully deleted"
-        except:
-            conn.rollback()
-            msg="Event does not exist"
-        finally:
-            conn.close()
-            return render_template("addEvent.html", msg2=msg)
+# @app.route("/DeleteEvent", methods=['POST'])
+# def DelEvent():
+#     if request.method=='POST':
+#         Event=request.form.get('DelEvent')
+#         try:
+#             conn = sqlite3.connect(DATABASE1)
+#             cur = conn.cursor()
+#             cur.execute("DELETE FROM Event WHERE VALUES (?)",(Event))
+#             conn.commit()
+#             msg="data successfully deleted"
+#         except:
+#             conn.rollback()
+#             msg="Event does not exist"
+#         finally:
+#             conn.close()
+#             return render_template("addEvent.html", msg2=msg)
 
-<<<<<<< HEAD
 @app.route("/Login", methods=['GET', 'POST'])
-=======
-    if request.method == 'POST':
-        try:
-            name= request.form.get('EmployeeName')
-            email= request.form.get('EmployeeEmail')
-
-            print(name)
-            print(email)
-
-            conn = sqlite3.connect(DATABASE2)
-            cur = conn.cursor()
-            cur.execute("SELECT * FROM Login WHERE FirstName=? ",[name])
-            data=cur.fetchall()
-            cur.execute("SELECT * FROM Login WHERE Email=?",[email])
-            data2=cur.fetchall()
-            print(data)
-            print(data2)
-        except:
-            print('Error with', data)
-            conn.close()
-        finally:
-            conn.close()
-            return render_template("AdminTable.html", data= data, data2=data2)
-
-@app.route("/Login" , methods=['GET', 'POST'])
->>>>>>> ccaed8ca414aa08de95780fdaa27c80931eaef34
 def returnLogin():
     if request.method=='GET':
         session.clear()
         return render_template("James_login.html")
     if request.method=='POST':
         try:
-            username=request.form.get('username')
-            password=request.form.get('password')
+            username=request.form.get('username', default="Error")
+            password=request.form.get('password', default="Error")
             print("fetching data")
             print(username)
             print(password)
