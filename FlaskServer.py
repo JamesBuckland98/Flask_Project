@@ -175,7 +175,7 @@ def addNewEvent():
         try:
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
-            cur.execute("INSERT INTO Login ('eventName')\
+            cur.execute("INSERT INTO Events('eventName')\
 						VALUES (?)",(NewEvent))
             conn.commit()
             msg="data uploaded successfully"
@@ -184,9 +184,28 @@ def addNewEvent():
             msg="Event already exists"
         finally:
             conn.close()
-            return render_template("addEvent.html", msg=msg)
+            return render_template("addEvent.html", msg1=msg)
 
+@app.route("/DeleteEvent", methods=['POST'])
+def DelEvent():
+    if request.method=='POST':
+        Event=request.form.get('DelEvent')
+        try:
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("DELETE FROM Event WHERE VALUES (?)",(Event))
+            conn.commit()
+            msg="data successfully deleted"
+        except:
+            conn.rollback()
+            msg="Event does not exist"
+        finally:
+            conn.close()
+            return render_template("addEvent.html", msg2=msg)
 
+<<<<<<< HEAD
+@app.route("/Login", methods=['GET', 'POST'])
+=======
     if request.method == 'POST':
         try:
             name= request.form.get('EmployeeName')
@@ -211,6 +230,7 @@ def addNewEvent():
             return render_template("AdminTable.html", data= data, data2=data2)
 
 @app.route("/Login" , methods=['GET', 'POST'])
+>>>>>>> ccaed8ca414aa08de95780fdaa27c80931eaef34
 def returnLogin():
     if request.method=='GET':
         session.clear()
