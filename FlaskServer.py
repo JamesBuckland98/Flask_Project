@@ -123,9 +123,9 @@ def returnAdminSearch():
 
     if request.method == 'POST':
         try:
-            date= request.form.get('date', default ="Error")
-            game= request.form.get('eventType', default="Error")
-            age= request.form.get('age', default="Error")
+            date= request.form.get('date')
+            game= request.form.get('eventType')
+            age= request.form.get('age')
             print(date)
             print(game)
             print(age)
@@ -159,6 +159,29 @@ def returnUserSearch():
         else:
             return render_template('ChildForm.html')
 
+    if request.method == 'POST':
+        try:
+            name= request.form.get('EmployeeName')
+            email= request.form.get('EmployeeEmail')
+
+            print(name)
+            print(email)
+
+            conn = sqlite3.connect(DATABASE2)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM Login WHERE FirstName=? ",[name])
+            data=cur.fetchall()
+            cur.execute("SELECT * FROM Login WHERE Email=?",[email])
+            data2=cur.fetchall()
+            print(data)
+            print(data2)
+        except:
+            print('Error with', data)
+            conn.close()
+        finally:
+            conn.close()
+            return render_template("AdminTable.html", data= data, data2=data2)
+
 @app.route("/Login" , methods=['GET', 'POST'])
 def returnLogin():
     if request.method=='GET':
@@ -166,8 +189,8 @@ def returnLogin():
         return render_template("James_login.html")
     if request.method=='POST':
         try:
-            username=request.form.get('username', default="Error")
-            password=request.form.get('password', default="Error")
+            username=request.form.get('username')
+            password=request.form.get('password')
             print("fetching data")
             print(username)
             print(password)
