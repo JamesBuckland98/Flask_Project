@@ -2,11 +2,11 @@ $(document).ready(function){
 
 function ValidateNewUserForm()
 {
-    var FirstName = document.getElementById('FirstName');
-    var Surname = document.getElementById('Surname');
-    var Username = document.getElementById('username');
-    var Email = document.getElementById('email');
-    var contactNumber = document.getElementById('contactnumber');
+    var FirstName = document.getElementById('FirstName').value;
+    var Surname = document.getElementById('Surname').value;
+    var Username = document.getElementById('username').value;
+    var Email = document.getElementById('email').value;
+    var contactNumber = document.getElementById('contactnumber').value;
     var Pass1 = document.getElementById('password').value;
     var Pass2 = document.getElementById('repassword').value;
 
