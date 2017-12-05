@@ -28,7 +28,13 @@ WRU Event Form
 <form id="EventForm" action="/AddEvent" method="post">
   <span> Add New Event </span> <br>
   <input type="text" id="NewEvent" name="NewEvent"><br>
-  <span>{{msg}}</span><br>
+  <span>{{msg1}}</span><br>
+  <button type="submit" class="btn btn-primary btn-lg"> Create Event </button>
+</form>
+<form id="DelEventForm" action="/DeleteEvent" method="post">
+  <span> Delete an Event </span> <br>
+  <input type="text" id="DelEvent" name="DelEvent"><br>
+  <span>{{msg2}}</span><br>
   <button type="submit" class="btn btn-primary btn-lg"> Create Event </button>
 </form>
 {%endblock%}
