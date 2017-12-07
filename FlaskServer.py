@@ -239,6 +239,18 @@ def DelEvent():
             conn.close()
             return render_template("addEvent.html", msg2=msg)
 
+@app.route("/Analytics",methods=['GET', 'POST'])
+def returnAnalytics():
+    if request.method == 'GET':
+        username=request.cookies.get('username')
+        userType=request.cookies.get('userType')
+        if 'userType' in session:
+            userType= escape(session['userType'])
+        if userType=="admin":
+            return render_template('Analytics.html')
+        else:
+            return redirect('/Upload')
+
 @app.route("/Login", methods=['GET', 'POST'])
 def returnLogin():
     if request.method=='GET':
@@ -277,10 +289,10 @@ def returnLogin():
                 print(session['userType'])
                 return redirect("/Upload")
 
-@app.route("/Parent", methods=['GET'])
-def returnParent():
-    if request.method == 'GET':
-        return render_template('ParentTemplate.html')
+# @app.route("/Parent", methods=['GET'])
+# def returnParent():
+#     if request.method == 'GET':
+#         return render_template('ParentTemplate.html')
 
 @app.route("/Welcome", methods=['GET'])
 def returnWelcome():
