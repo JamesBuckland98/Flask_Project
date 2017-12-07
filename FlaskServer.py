@@ -186,6 +186,9 @@ def returnUserSearch():
             conn.close()
             return render_template("UserSearchResults.html", data= data, data2=data2)
 
+@app.route("/SW", methods = ['GET'])
+def serviceWorker():
+	return app.send_static_file('sw.js')
 
 @app.route("/AddEvent", methods=['GET','POST'])
 def addNewEvent():
