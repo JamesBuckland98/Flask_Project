@@ -1,0 +1,35 @@
+{%extends 'ParentTemplate.html'%}
+
+{% block title%}
+{{ super() }}
+Analytics
+{%endblock%}
+
+{% block headBlock%}
+{{ super() }}
+<!-- WRU Event Form -->
+Admin Section
+<link href="../static/css/addEvent.css" rel="stylesheet">
+{%endblock%}
+
+
+{% block contentBlock%}
+{{ super() }}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/Upload">Form</a></li>
+      <li><a href="/EmployeeSearch">Employee Search</a></li>
+      <li><a href="/AdminSearch">Game Search</a></li>
+      <li><a href="/AddEvent">Create an event</a></li>
+      <li><a href="/Analytics">Analytics</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/Login">Log out</a></li>
+    </ul>
+  </div>
+</nav>
+
+<h1>Analytics</h1>
+
+{%endblock%}
