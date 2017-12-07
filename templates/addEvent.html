@@ -2,14 +2,17 @@
 
 {% block title%}
 {{ super() }}
-WRU Event Form
+Create/Delete Events
 {%endblock%}
 
 {% block headBlock%}
 {{ super() }}
 <!-- WRU Event Form -->
+Admin Section
+</section>
 <link href="../static/css/addEvent.css" rel="stylesheet">
 {%endblock%}
+
 
 {% block contentBlock%}
 {{ super() }}
@@ -20,6 +23,7 @@ WRU Event Form
       <li><a href="/EmployeeSearch">Employee Search</a></li>
       <li><a href="/AdminSearch">Game Search</a></li>
       <li><a href="/AddEvent">Create an event</a></li>
+      <li><a href="/Analytics">Analytics</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/Login">Log out</a></li>
