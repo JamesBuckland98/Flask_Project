@@ -195,7 +195,11 @@ def addNewEvent():
         if 'userType' in session:
             userType= escape(session['userType'])
         if userType=="admin":
-            return render_template('addEvent.html')
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM Events")
+            data=cur.fetchall()
+            return render_template('addEvent.html', data=data)
         else:
             return redirect('/Upload')
     if request.method=='POST':
@@ -203,6 +207,7 @@ def addNewEvent():
             NewEvent=request.form.get('NewEvent')
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
+            print(data)
             cur.execute("INSERT INTO Events('eventName')\
 						VALUES (?)",(NewEvent,))
             conn.commit()
