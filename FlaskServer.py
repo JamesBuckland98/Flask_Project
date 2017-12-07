@@ -186,6 +186,9 @@ def returnUserSearch():
             conn.close()
             return render_template("UserSearchResults.html", data= data, data2=data2)
 
+@app.route("/SW", methods = ['GET'])
+def serviceWorker():
+	return app.send_static_file('sw.js')
 
 @app.route("/AddEvent", methods=['GET','POST'])
 def addNewEvent():
@@ -195,7 +198,11 @@ def addNewEvent():
         if 'userType' in session:
             userType= escape(session['userType'])
         if userType=="admin":
-            return render_template('addEvent.html')
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM Events")
+            data=cur.fetchall()
+            return render_template('addEvent.html', data=data)
         else:
             return redirect('/Upload')
     if request.method=='POST':
@@ -203,6 +210,7 @@ def addNewEvent():
             NewEvent=request.form.get('NewEvent')
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
+            print(data)
             cur.execute("INSERT INTO Events('eventName')\
 						VALUES (?)",(NewEvent,))
             conn.commit()

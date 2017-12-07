@@ -26,6 +26,22 @@ WRU Event Form
     </ul>
   </div>
 </nav>
+
+<h1> Current Events: </h1>
+<table>
+  <thead>
+    <td><span>Event ID</span></td>
+    <td><span>Event Name</span></td>
+  </thead>
+  {%for row in data%}
+  <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+  </tr>
+  {%endfor%}
+</table>
+<br>
+
 <form id="EventForm" action="/AddEvent" method="post">
   <span> Add New Event </span> <br>
   <input type="text" id="NewEvent" name="NewEvent"><br>
