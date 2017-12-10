@@ -2,14 +2,17 @@
 
 {% block title%}
 {{ super() }}
-WRU Event Form
+Create/Delete Events
 {%endblock%}
 
 {% block headBlock%}
 {{ super() }}
 <!-- WRU Event Form -->
+Admin Section
+</section>
 <link href="../static/css/addEvent.css" rel="stylesheet">
 {%endblock%}
+
 
 {% block contentBlock%}
 {{ super() }}
@@ -20,12 +23,29 @@ WRU Event Form
       <li><a href="/EmployeeSearch">Employee Search</a></li>
       <li><a href="/AdminSearch">Game Search</a></li>
       <li><a href="/AddEvent">Create an event</a></li>
+      <li><a href="/Analytics">Analytics</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/Login">Log out</a></li>
     </ul>
   </div>
 </nav>
+
+<h1> Current Events: </h1>
+<table>
+  <thead>
+    <td><span>Event ID</span></td>
+    <td><span>Event Name</span></td>
+  </thead>
+  {%for row in data%}
+  <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+  </tr>
+  {%endfor%}
+</table>
+<br>
+
 <form id="EventForm" action="/AddEvent" method="post">
   <span> Add New Event </span> <br>
   <input type="text" id="NewEvent" name="NewEvent"><br>

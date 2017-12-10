@@ -19,6 +19,8 @@ Admin Section
       <li><a href="/EmployeeSearch">Employee Search</a></li>
       <li><a href="/AdminSearch">Game Search</a></li>
       <li><a href="/AddEvent">Create an event</a></li>
+      <li><a href="/Analytics">Analytics</a></li>
+
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/Login">Log out</a></li>
@@ -39,13 +41,18 @@ Admin Section
     <option value="Touch">Touch</option>
     <option value="Contact">Contact</option>
   </select>
-
   <select name="age">
     <option disabled selected value> -- select an option -- </option>
     <option value="Minis">Minis (4-7)</option>
     <option value="Juniors">Juniors (8-17)</option>
     <option value="Seniors">Seniors (18+)</option>
   </select>
+  <fieldset>
+    <span>Search Address:</span><br>
+    <p><textarea id=address name=address type=text placeholder="Enter Address"required></textarea></p>
+    <span>Search Postcode:</span><br>
+    <input id=postcode name=postcode type=text placeholder="Enter Postcode" required/>
+  </fieldset>
   <br>
   <button type="submit" class="btn btn-primary btn-lg">Submit</button>
 </form>

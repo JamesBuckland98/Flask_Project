@@ -130,9 +130,13 @@ def returnAdminSearch():
             date= request.form.get('date', default ="Error")
             game= request.form.get('eventType', default="Error")
             age= request.form.get('age', default="Error")
+            address= request.form.get('address', default="Error")
+            postcode= request.form.get('postcode', default="Error")
             print(date)
             print(game)
             print(age)
+            print(address)
+            print(postcode)
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
             cur.execute("SELECT * FROM Activities WHERE date=? ",[date])
@@ -141,15 +145,21 @@ def returnAdminSearch():
             data2=cur.fetchall()
             cur.execute("SELECT * FROM Games WHERE ageRange=?",[age])
             data3=cur.fetchall()
+            cur.execute("SELECT * FROM Events WHERE Address=?",[address])
+            data4=cur.fetchall()
+            cur.execute("SELECT * FROM Events WHERE Postcode=?",[postcode])
+            data5=cur.fetchall()
             print(data)
             print(data2)
             print(data3)
+            print(data4)
+            print(data5)
         except:
             print('Error with', data)
             conn.close()
         finally:
             conn.close()
-            return render_template("AdminTable.html", data= data, data2=data2, data3= data3)
+            return render_template("AdminTable.html", data= data, data2=data2, data3= data3, data4= data4, data5= data5)
 
 @app.route("/EmployeeSearch",methods=['GET', 'POST'])
 def returnUserSearch():
@@ -194,7 +204,11 @@ def addNewEvent():
         if 'userType' in session:
             userType= escape(session['userType'])
         if userType=="admin":
-            return render_template('addEvent.html')
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM Events")
+            data=cur.fetchall()
+            return render_template('addEvent.html', data=data)
         else:
             return redirect('/Upload')
     if request.method=='POST':
@@ -202,6 +216,7 @@ def addNewEvent():
             NewEvent=request.form.get('NewEvent')
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
+            print(data)
             cur.execute("INSERT INTO Events('eventName')\
 						VALUES (?)",(NewEvent,))
             conn.commit()
@@ -229,6 +244,18 @@ def DelEvent():
         finally:
             conn.close()
             return render_template("addEvent.html", msg2=msg)
+
+@app.route("/Analytics",methods=['GET', 'POST'])
+def returnAnalytics():
+    if request.method == 'GET':
+        username=request.cookies.get('username')
+        userType=request.cookies.get('userType')
+        if 'userType' in session:
+            userType= escape(session['userType'])
+        if userType=="admin":
+            return render_template('Analytics.html')
+        else:
+            return redirect('/Upload')
 
 @app.route("/Login", methods=['GET', 'POST'])
 def returnLogin():
@@ -268,10 +295,10 @@ def returnLogin():
                 print(session['userType'])
                 return redirect("/Upload")
 
-@app.route("/Parent", methods=['GET'])
-def returnParent():
-    if request.method == 'GET':
-        return render_template('ParentTemplate.html')
+# @app.route("/Parent", methods=['GET'])
+# def returnParent():
+#     if request.method == 'GET':
+#         return render_template('ParentTemplate.html')
 
 @app.route("/Welcome", methods=['GET'])
 def returnWelcome():

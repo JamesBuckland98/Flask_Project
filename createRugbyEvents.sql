@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `Events`(
   `Address` TEXT NOT NULL UNIQUE,
   `Postcode` TEXT NOT NULL
 );
+
 INSERT INTO 'Events'('eventName','Address', 'Postcode') VALUES ('Touch Rugby', 'Cardiff University, Birchwood Road,', '‎CF23 5YB');
 
 

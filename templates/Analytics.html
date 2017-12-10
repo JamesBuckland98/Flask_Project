@@ -1,14 +1,18 @@
 {%extends 'ParentTemplate.html'%}
+
 {% block title%}
 {{ super() }}
-WRU Admin
+Analytics
 {%endblock%}
-
 
 {% block headBlock%}
 {{ super() }}
+<!-- WRU Event Form -->
 Admin Section
+<link href="../static/css/addEvent.css" rel="stylesheet">
+<script src="plotly-latest.min.js"></script>
 {%endblock%}
+
 
 {% block contentBlock%}
 {{ super() }}
@@ -27,21 +31,6 @@ Admin Section
   </div>
 </nav>
 
-<br>
-<h1>Search Employee</h1>
-<form id=employeeForm action="/EmployeeSearch" method="post">
-  <span>Search by name:</span><br>
-  <input type="text" id="EmployeeName" name="EmployeeName"><br>
+<h1>Analytics</h1>
 
-  <span>Search by email:</span><br>
-  <input type="text" id="EmployeeEmail" name="EmployeeEmail"><br>
-
-  <br>
-  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-</form>
-{%endblock%}
-
-{% block scriptsBlock%}
-{{ super() }}
-<!-- javascriptgoes here -->
 {%endblock%}
