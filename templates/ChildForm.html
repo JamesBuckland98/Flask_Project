@@ -89,6 +89,13 @@ WRU Event Form
 
 {% block scriptsBlock%}
 {{ super() }}
+<script>
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker
+           .register('/SW')
+           .then(function() { console.log("Service Worker Registered"); });
+}
+</script>
 <script type="text/javascript" src="../static/js/slider.js"></script>
 <script type="text/javascript" src="../static/js/addfield.js"></script>
 <script type="text/javascript" src="../static/js/submit.js"></script>

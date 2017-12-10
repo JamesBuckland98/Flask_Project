@@ -186,10 +186,6 @@ def returnUserSearch():
             conn.close()
             return render_template("UserSearchResults.html", data= data, data2=data2)
 
-@app.route("/SW", methods = ['GET'])
-def serviceWorker():
-	return app.send_static_file('sw.js')
-
 @app.route("/AddEvent", methods=['GET','POST'])
 def addNewEvent():
     if request.method =='GET':
@@ -217,9 +213,9 @@ def addNewEvent():
             conn.close()
             return render_template("addEvent.html", msg1=msg)
 
-@app.route("/DeleteEvent", methods=['POST'])
+@app.route("/DeleteEvent", methods=['GET','POST'])
 def DelEvent():
-    if request.method=='POST':
+    if request.method=='POST' or 'GET':
         try:
             Event=request.form.get('DelEvent')
             conn = sqlite3.connect(DATABASE1)
@@ -371,6 +367,10 @@ def getPin():
         finally:
             conn.close()
             return render_template("NewUser.html", msg=msg)
+
+@app.route("/SW", methods = ['GET'])
+def serviceWorker():
+	return app.send_static_file('sw.js')
 
 if __name__ == "__main__":
     app.run(debug=True)
