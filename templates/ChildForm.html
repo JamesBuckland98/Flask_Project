@@ -83,65 +83,12 @@ WRU Event Form
   <span> {{msg}} </span>
   <div id="submit">
     <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-    <button onclick="resendStoredData()" class="btn btn-primary btn-lg">resend stored data</button>
   </div>
 </form>
 {%endblock%}
 
 {% block scriptsBlock%}
 {{ super() }}
-<script>
-xhttp.onreadystatechange = function() {
-var date = document.forms["infoForm"]["date"].value;
-var eventName = document.forms["infoForm"]["eventName"].value;
-var Attendance = document.forms["infoForm"]["attendance"].value;
-var eventType = document.forms["infoForm"]["eventType"].value;
-var Males = document.forms["infoForm"]["slider"].value;
-var Females = 100- document.forms["infoForm"]["sldier"].value;
-var gameType = document.forms["infoForm"]["gameType"].value;
-var age = document.form["infoForm"]["age"].value;
-params = 'date='+date+'&eventName'+eventName+'&attendance='+Attendance+'&eventType'+eventType+'&Males='+Males+'&Females='+Females+'&gameType='+gameType+'&age='+age;
-if (xhttp.readyState === 4){
-if (xhttp.status === 200) {
-console.log(xhttp.responseText);
-document.getElementById("txt").innerHTML = xhttp.responseText;
-} else if (xhttp.status === 503 || xhttp.status === 0 ) {
-console.error(xhttp.statusText);
-offlineStore("/Upload", "POST", params);
-document.getElementById("txt").innerHTML = "browser off line data stored for later use "+xhttp.status;
-} else {
-console.error(xhttp.statusText);
-document.getElementById("txt").innerHTML = "other weird error"+xhttp.status;
-}
-}
-};
-function offlineStore(action, method, params){
-myStorage = window.localStorage;
-console.log(myStorage.length);
-storageItem= JSON.stringify({"action":action, "method":method, "params":params});
-myStorage.setItem('datastorage'+myStorage.length, storageItem);
-}
-function resendStoredData(){
-var msg = "null"
-var myStorage = window.localStorage;
-messages = [];
-console.log(messages.length);
-for (message in myStorage){
-var messageObj =
-JSON.parse(myStorage.getItem(message));
-messages.push(messageObj);
-}
-myStorage.clear()
-console.log(messages);
-for (i=0;i< messages.length;i++){
-if (messages[i] != null){
-console.log(messages[i]);
-ajaxData(messages[i]["action"],
-messages[i]["method"], messages[i]["params"]);
-}
-}
-}
-</script>
 <script type="text/javascript" src="../static/js/slider.js"></script>
 <script type="text/javascript" src="../static/js/addfield.js"></script>
 <script type="text/javascript" src="../static/js/submit.js"></script>
