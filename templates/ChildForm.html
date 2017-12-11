@@ -26,7 +26,7 @@ WRU Event Form
       <!-- https://stackoverflow.com/questions/1465249/get-lengths-of-a-list-in-a-jinja2-template -->
       {% set data = data %}
       {%for i in range(data|length)%}
-        <option>{{data[i]}}</option>
+        <option>{{data[i][0]}}</option>
       {%endfor%}
     </select>
   </div>
