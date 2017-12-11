@@ -282,8 +282,10 @@ def returnAnalytics():
         finally:
             if males is None:
                 males=0
-            elif females is None:
+            if females is None:
                 females=0
+            print(males)
+            print(females)
             conn.close()
             return render_template("Analytics.html", males=males, females=females)
 
