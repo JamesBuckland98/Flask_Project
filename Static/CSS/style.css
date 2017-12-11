@@ -17,7 +17,7 @@ p{
   margin: 1%;
 }
 form{
-  background: grey;
+  background: #cccccc;
   border:5px solid black;
 }
 input{
@@ -34,7 +34,7 @@ a {
 }
 table{
   border: 5px solid black;
-  background: grey;
+  background: #cccccc;
   width: 100%;
   text-align: center;
 }
@@ -58,7 +58,7 @@ canvas{
   margin-right: 2%
 }
 #welcome{
-  background: grey;
+  background: #cccccc;
   border:5px solid black;
   text-align: center;
 }
