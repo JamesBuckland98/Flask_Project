@@ -6,8 +6,9 @@ CREATE TABLE IF NOT EXISTS `Login` (
   `FirstName`	TEXT NOT NULL,
   `Surname`	TEXT NOT NULL,
   `Email` TEXT NOT NULL,
+  `Phone` INTEGER NOT NULL,
   'Username' TEXT NOT NULL Unique,
   `Password` CHAR NOT NULL
 );
 
-INSERT INTO 'Login'('FirstName','Surname', 'Email', 'Username', `Password` ) VALUES ('John', 'Doe', 'JohnDoe@adminwru.com', 'admin', 'password');
+INSERT INTO 'Login'('FirstName','Surname', 'Email', 'Phone', 'Username', `Password` ) VALUES ('John', 'Doe', 'JohnDoe@adminwru.com',118118, 'admin', 'password');

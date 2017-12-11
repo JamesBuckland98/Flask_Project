@@ -352,6 +352,7 @@ def index():
         password=request.form.get('password')
         repassword=request.form.get('repassword')
         email=request.form.get('email')
+        phone=request.form.get('contactnumber')
         FirstName=request.form.get('FirstName')
         surname=request.form.get('Surname')
         pin=str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))+str(random.randint(0,9))
@@ -360,24 +361,30 @@ def index():
         print(password)
         print(repassword)
         print(email)
+        print(phone)
         print(pin)
         try:
             customer.insert(0,password)
             customer.insert(0,username)
+            customer.insert(0,phone)
             customer.insert(0,email)
             customer.insert(0,surname)
             customer.insert(0,FirstName)
             print(customer)
-            msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
-            msg.body='your pin is: '+ pin
-            mail.send(msg)
-            conn = sqlite3.connect(DATABASE3)
-            cur = conn.cursor()
-            cur.execute("INSERT INTO pin('pin')\
-                        VALUES (?)",(pin,))
-            conn.commit()
-            conn.close()
-            return redirect("/Pin")
+            if password == repassword:
+                msg= Message("Your pin",sender="notabot554@gmail.com",recipients=[email])
+                msg.body='your pin is: '+ pin
+                mail.send(msg)
+                conn = sqlite3.connect(DATABASE3)
+                cur = conn.cursor()
+                cur.execute("INSERT INTO pin('pin')\
+                            VALUES (?)",(pin,))
+                conn.commit()
+                conn.close()
+                return redirect("/Pin")
+            else:
+                msg="passwords do not match"
+                return render_template("NewUser.html", msg=msg)
         except:
             msg="please insert data"
             return render_template("NewUser.html", msg=msg)
@@ -392,8 +399,9 @@ def getPin():
         FirstName=customer[0]
         surname=customer[1]
         email=customer[2]
-        username=customer[3]
-        password=customer[4]
+        phone=customer[3]
+        username=customer[4]
+        password=customer[5]
         print(customer)
         print(FirstName)
         print(surname)
@@ -411,8 +419,8 @@ def getPin():
         try:
             conn=sqlite3.connect(DATABASE2)
             cur = conn.cursor()
-            cur.execute("INSERT INTO Login ('FirstName','Surname','Email','Username', 'Password')\
-                        VALUES (?,?,?,?,?)",(FirstName,surname, email, username, password))
+            cur.execute("INSERT INTO Login ('FirstName','Surname','Email','Phone','Username', 'Password')\
+                        VALUES (?,?,?,?,?,?)",(FirstName,surname, email, phone, username, password))
             conn.commit()
             while len(customer)>0:
                 customer.pop()
