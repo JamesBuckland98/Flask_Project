@@ -123,6 +123,7 @@ def returnAdminSearch():
         if userType=="admin":
             return render_template('Admin.html')
         else:
+            print('admin search')
             return redirect('/Upload')
 
     if request.method == 'POST':
@@ -256,6 +257,28 @@ def returnAnalytics():
             return render_template('Analytics.html')
         else:
             return redirect('/Upload')
+
+    if request.method == 'POST':
+        date= request.form.get('date', default ="Error")
+        try:
+            conn = sqlite3.connect(DATABASE1)
+            cur = conn.cursor()
+            cur.execute("SELECT SUM(Male) FROM Activities WHERE Date=?",[date])
+            data=cur.fetchall()
+            cur.execute("SELECT SUM(Female) FROM Activities WHERE Date=?",[date])
+            data2=cur.fetchall()
+            males=data[0][0]
+            females=data2[0][0]
+        except:
+            print("error")
+        finally:
+            if males is None:
+                males=0
+            elif females is None:
+                females=0
+            conn.close()
+            return render_template("Analytics.html", males=males, females=females)
+
 
 @app.route("/Login", methods=['GET', 'POST'])
 def returnLogin():

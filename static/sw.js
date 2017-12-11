@@ -5,14 +5,14 @@ self.addEventListener('install', function(e) {
    caches.open('WRU').then(function(cache) {
      return cache.addAll([
        '/Upload',
-       // '/NewUser',
-       // '/AdminSearch',
-       // '/EmployeeSearch',
-       // '/AddEvent',
-       // '/DeleteEvent',
-       // // '/Login',
-       // // '/email',
-       // // '/Pin',
+       '/NewUser',
+       '/AdminSearch',
+       '/EmployeeSearch',
+       '/AddEvent',
+       '/DeleteEvent',
+       '/Login',
+       '/email',
+       '/Pin',
        '/static/css/bootstrap.min.css',
        '/static/css/style.css',
        '/static/css/addEvent.css',
@@ -31,10 +31,12 @@ self.addEventListener('install', function(e) {
 
 self.addEventListener('fetch', function(event) {
   console.log(event.request.url);
-  location.reload(true);
   event.respondWith(
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
-    })
+    fetch(event.request).catch(function()
+  { return caches.match(event.request)
+  })
+    // caches.match(event.request).then(function(response) {
+    //   return response || fetch(event.request);
+    // })
   );
 });
