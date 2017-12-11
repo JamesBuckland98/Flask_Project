@@ -28,7 +28,8 @@ def AddInfo():
         conn = sqlite3.connect(DATABASE1)
         cur = conn.cursor()
         cur.execute("SELECT eventName FROM Events")
-        data=cur.fetchall()
+        dropDown=cur.fetchall()
+        data=dropDown[0]
         return render_template("ChildForm.HTML", data=data)
     if request.method=='POST':
         conn = sqlite3.connect(DATABASE1)
