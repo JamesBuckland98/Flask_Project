@@ -224,11 +224,15 @@ def addNewEvent():
     if request.method=='POST':
         try:
             NewEvent=request.form.get('NewEvent')
+            address=request.form.get('address')
+            postcode=request.form.get('postcode')
+            print(NewEvent)
+            print(address)
+            print(postcode)
             conn = sqlite3.connect(DATABASE1)
             cur = conn.cursor()
-            print(data)
-            cur.execute("INSERT INTO Events('eventName')\
-						VALUES (?)",(NewEvent,))
+            cur.execute("INSERT INTO Events('eventName','Address','Postcode')\
+						VALUES (?,?,?)",(NewEvent, address, postcode))
             conn.commit()
             msg="data uploaded successfully"
         except:
